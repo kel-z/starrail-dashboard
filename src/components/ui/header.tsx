@@ -16,15 +16,15 @@ function Header() {
   } = {
     "light-cones": {
       name: "Light Cones",
-      path: "/hsr-inventory/light-cones",
+      path: "light-cones",
     },
     relics: {
       name: "Relics",
-      path: "/hsr-inventory/relics",
+      path: "relics",
     },
     characters: {
       name: "Characters",
-      path: "/hsr-inventory/characters",
+      path: "characters",
     },
   };
 
