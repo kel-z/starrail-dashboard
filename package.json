@@ -2,7 +2,7 @@
   "name": "hsr-inventory",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://kel-z.github.io/HSR-Inventory/",
+  "homepage": "https://kel-z.github.io/hsr-inventory/",
   "type": "module",
   "scripts": {
     "dev": "vite",
