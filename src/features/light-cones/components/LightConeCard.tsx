@@ -44,7 +44,7 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
     <HoverCard>
       <div className="relative flex flex-col justify-between overflow-hidden rounded border">
         <div
-          className="absolute right-2 top-1 cursor-pointer text-muted transition-colors hover:text-foreground"
+          className="absolute right-2 top-1 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
           onClick={deleteLightCone}
         >
           ✕
@@ -58,20 +58,22 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
             />
             <div className="flex flex-1 flex-col p-2 text-sm">
               <div
-                className={`text-lg font-semibold ${getRarityStyle(
+                className={`text-base font-semibold ${getRarityStyle(
                   metadata.rarity,
                 )}`}
               >
                 {lc.key}
               </div>
-              <div>
+              <div className="font-medium">
                 Lv. {lc.level}
-                <span className="text-muted-foreground/50">
+                <span className="font-normal text-muted">
                   {" "}
                   / {20 + 10 * lc.ascension}
                 </span>
               </div>
-              <div>Superimposition {lc.superimposition}</div>
+              <div className="font-medium">
+                Superimposition {lc.superimposition}
+              </div>
             </div>
           </div>
         </HoverCardTrigger>

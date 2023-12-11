@@ -18,16 +18,16 @@ function LightConeHoverCardContent({
 
   return (
     <HoverCardContent className="text-sm">
-      <div className="flex justify-between">
+      <div className="flex flex-wrap justify-between">
         <div className={`font-semibold ${getRarityStyle(metadata.rarity)}`}>
           {lc.key}
         </div>
-        <div className="text-muted-foreground/50">
+        <div className="text-muted-foreground">
           Lv. {lc.level} / {20 + 10 * lc.ascension}
         </div>
       </div>
       <Separator />
-      <div className="grid grid-cols-1 grid-rows-3 p-2">
+      <div className="grid grid-cols-1 grid-rows-3 p-2 font-medium">
         {Object.entries(stats).map(([key, value]) => (
           <div key={key} className="flex flex-row justify-between">
             <div>{key.toUpperCase()}</div>
@@ -35,12 +35,12 @@ function LightConeHoverCardContent({
           </div>
         ))}
       </div>
-      <div className="flex justify-between">
-        <div>{metadata.ability.name}</div>
-        <div className="text-muted-foreground/50">S{lc.superimposition}</div>
+      <div className="flex flex-wrap justify-between">
+        <div className="font-semibold">{metadata.ability.name}</div>
+        <div className="text-muted-foreground">S{lc.superimposition}</div>
       </div>
       <Separator />
-      <div className="p-2">
+      <div className="p-2 text-xs">
         {formatDesc(
           metadata.ability.desc,
           metadata.ability.params[lc.superimposition - 1],

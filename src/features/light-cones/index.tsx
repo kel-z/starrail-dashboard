@@ -72,7 +72,7 @@ function LightCones() {
   return (
     <TabLayout>
       <Scrollable loadMore={loadMore} doneLoading={doneLoading}>
-        <div className="mb-2 flex flex-wrap items-center justify-between sm:flex-row">
+        <div className="mb-2 flex flex-wrap justify-between sm:flex-row">
           <h1 className="rounded text-2xl font-bold">Light Cones</h1>
           <SelectSort
             sortOptions={sortOptions}

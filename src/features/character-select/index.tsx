@@ -31,7 +31,7 @@ function CharacterSelect({
 
   const selectText = (character: keyof GameData["characters"] & string) => {
     return (
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 font-medium">
         <div className="relative hidden h-8 w-8 overflow-hidden rounded-full border md:block">
           <img
             className="absolute top-[40%] scale-[200%]"
@@ -53,7 +53,7 @@ function CharacterSelect({
   };
 
   return (
-    <div className="flex gap-1 p-2">
+    <div className="flex gap-2 p-2">
       <Select value={selected} onValueChange={onCharacterSelect}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder}>
@@ -75,7 +75,7 @@ function CharacterSelect({
           onClick={() => onCharacterSelect(null)}
         >
           <FontAwesomeIcon
-            className="text-muted transition-colors group-hover:text-accent-foreground"
+            className="text-muted-foreground transition-colors group-hover:text-accent-foreground"
             icon={regular("circle-xmark")}
           />
         </Button>
