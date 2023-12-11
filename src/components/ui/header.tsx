@@ -26,14 +26,16 @@ function Header() {
       name: "Characters",
       path: "characters",
     },
+    settings: {
+      name: "Settings",
+      path: "settings",
+    },
   };
 
   return (
-    <div className="border-b-accent flex h-12 items-center gap-3 border-b">
-      <div className="hidden h-5 items-center gap-2 sm:flex">
-        <div className=" text-primary-foreground ml-5 text-lg font-bold">
-          HSR Inventory Viewer
-        </div>
+    <div className="flex h-12 w-full items-center gap-3 border-b">
+      <div className="hidden h-5 w-full items-center gap-2 sm:flex">
+        <div className=" mx-5 text-lg font-bold">Star Rail Dashboard</div>
         <Separator orientation="vertical" />
         <NavigationMenu>
           <NavigationMenuList>
@@ -42,8 +44,10 @@ function Header() {
                 <NavLink
                   to={value?.path}
                   className={({ isActive }) =>
-                    `bg-background hover:bg-accent inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 ${
-                      isActive ? "text-primary" : "text-primary-foreground"
+                    `inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 ${
+                      isActive
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:bg-accent"
                     }`
                   }
                   end

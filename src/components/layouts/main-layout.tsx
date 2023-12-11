@@ -3,7 +3,7 @@ import Header from "../ui/header";
 
 function MainLayout() {
   return (
-    <div className="h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
       <main>
         <Outlet />

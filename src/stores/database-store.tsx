@@ -1,16 +1,16 @@
 import { useState, useEffect, createContext } from "react";
 import { GameData } from "@/types/game-data";
-import { UserData } from "@/types/hsr-scanner-data";
+import { UserData } from "@/types/user-data/hsr-scanner";
 
 const initialGameDataState: GameData = {
-  version: "UNKNOWN",
+  version: "0.0.0",
   light_cones: {},
   relic_sets: {},
   characters: {},
 };
 
-const initialUserDataState: UserData = {
-  source: "UNKNOWN",
+export const defaultUserDataState: UserData = {
+  source: "NONE",
   version: -1,
   light_cones: [],
   relics: [],
@@ -21,12 +21,15 @@ type HsrDataProviderState = {
   gameData: GameData;
   userData: UserData;
   setUserData: (userData: UserData) => void;
+  isTrailblazerFemale: boolean;
+  setIsTrailblazerFemale: (isFemale: boolean) => void;
 };
-
 export const HsrDataContext = createContext<HsrDataProviderState>({
   gameData: initialGameDataState,
-  userData: initialUserDataState,
+  userData: defaultUserDataState,
   setUserData: () => null,
+  isTrailblazerFemale: true,
+  setIsTrailblazerFemale: () => null,
 });
 
 type HsrDataProviderProps = {
@@ -34,7 +37,10 @@ type HsrDataProviderProps = {
 };
 export const HsrDataProvider = ({ children }: HsrDataProviderProps) => {
   const [gameData, setGameData] = useState<GameData>(initialGameDataState);
-  const [userData, setUserData] = useState<UserData>(initialUserDataState);
+  const [userData, setUserData] = useState<UserData>(defaultUserDataState);
+
+  // yes, i'm making female the default. fight me.
+  const [isTrailblazerFemale, setIsTrailblazerFemale] = useState<boolean>(true);
 
   useEffect(() => {
     const url =
@@ -70,6 +76,8 @@ export const HsrDataProvider = ({ children }: HsrDataProviderProps) => {
         gameData,
         userData,
         setUserData,
+        isTrailblazerFemale,
+        setIsTrailblazerFemale,
       }}
     >
       {children}

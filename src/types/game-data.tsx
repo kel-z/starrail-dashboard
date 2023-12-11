@@ -1,13 +1,13 @@
 export type GameData = {
   version: string;
   light_cones: {
-    [key: string]: LightCone;
+    [key: string]: LightConeMetadata;
   };
   relic_sets: {
-    [key: string]: RelicSet;
+    [key: string]: RelicSetMetadata;
   };
   characters: {
-    [key: string]: Character;
+    [key: string]: CharacterMetadata;
   };
 };
 
@@ -18,7 +18,7 @@ type StatIncrement = {
   step: number;
 };
 
-type LightCone = {
+export type LightConeMetadata = {
   path: CharacterPath;
   rarity: number;
   desc: string;
@@ -51,7 +51,7 @@ type RelicSlots =
   | "Planar Sphere"
   | "Link Rope";
 
-type RelicSet = {
+type RelicSetMetadata = {
   pieces: {
     [key in RelicSlots]?: Relic;
   };
@@ -84,7 +84,7 @@ type Relic = {
   icon: string;
 };
 
-type Character = {
+export type CharacterMetadata = {
   rarity: number;
   path: CharacterPath;
   element: CharacterElement;
@@ -100,6 +100,7 @@ type Character = {
   traces: {
     [key in CharacterTraceKey]: CharacterTraceData;
   };
+  icon: string;
 };
 
 type CharacterBaseStatKey =

@@ -58,10 +58,10 @@ module.exports = {
         md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
       },
-      // fontFamily: {
-      //   sans: ["Futura", ...defaultTheme.fontFamily.sans],
-      //   "din-alternate": ["DIN Alternate", ...defaultTheme.fontFamily.sans],
-      // },
+      fontFamily: {
+        // sans: ["Futura", ...defaultTheme.fontFamily.sans],
+        "din-alternate": ["DIN Alternate", ...defaultTheme.fontFamily.sans],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

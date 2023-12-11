@@ -1,6 +1,6 @@
 function Spinner() {
   return (
-    <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-gray-900" />
+    <div className="h-full w-full animate-spin rounded-full border-b-4 border-dotted border-muted" />
   );
 }
 

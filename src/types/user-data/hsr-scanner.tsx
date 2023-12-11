@@ -1,4 +1,4 @@
-import { CharacterSkillKey, CharacterTraceKey } from "./game-data";
+import { CharacterSkillKey, CharacterTraceKey } from "../game-data";
 
 export type UserData = {
   source: string;
@@ -8,7 +8,7 @@ export type UserData = {
   characters: Character[];
 };
 
-type LightCone = {
+export type LightCone = {
   key: string;
   level: number;
   ascension: number;
@@ -17,7 +17,7 @@ type LightCone = {
   lock: boolean;
 };
 
-type Relic = {
+export type Relic = {
   set: string;
   slot: string;
   rarity: number;
@@ -28,7 +28,7 @@ type Relic = {
   lock: boolean;
 };
 
-type Character = {
+export type Character = {
   key: string;
   level: number;
   ascension: number;
