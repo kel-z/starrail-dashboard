@@ -1,4 +1,8 @@
-import { CharacterSkillKey, CharacterTraceKey } from "../game-data";
+import {
+  CharacterSkillKey,
+  CharacterTraceKey,
+  RelicSlots as RelicSlot,
+} from "../game-data-types";
 
 export type UserData = {
   source: string;
@@ -19,7 +23,7 @@ export type LightCone = {
 
 export type Relic = {
   set: string;
-  slot: string;
+  slot: RelicSlot;
   rarity: number;
   level: number;
   mainstat: RelicMainstatKey;

@@ -1,4 +1,4 @@
-import { UserData } from "@/types/user-data/hsr-scanner";
+import { UserData } from "@/types/user-data/hsr-scanner-types";
 
 export const loadHsrScannerDataString = (
   userDataString: string,

@@ -2,8 +2,8 @@ import { HoverCardContent } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { getLightConeStats } from "@/utils/light-cone-utils";
 import { getRarityStyle } from "@/utils/style-utils";
-import { LightConeMetadata } from "@/types/game-data";
-import { LightCone } from "@/types/user-data/hsr-scanner";
+import { LightConeMetadata } from "@/types/game-data-types";
+import { LightCone } from "@/types/user-data/hsr-scanner-types";
 import { formatDesc } from "@/utils/format-utils";
 
 interface LightConeHoverCardContentProps {

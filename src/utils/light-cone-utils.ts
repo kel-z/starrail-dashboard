@@ -1,4 +1,4 @@
-import { LightConeMetadata } from "@/types/game-data";
+import { LightConeMetadata } from "@/types/game-data-types";
 
 export const getLightConeStats = (
   metadata: LightConeMetadata,

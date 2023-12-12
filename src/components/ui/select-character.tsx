@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 import { HsrDataContext } from "@/stores/database-store";
 import { useContext } from "react";
-import { GameData } from "@/types/game-data";
+import { GameData } from "@/types/game-data-types";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";

@@ -43,7 +43,7 @@ type LightConeAbility = {
   params: string[][];
 };
 
-type RelicSlots =
+export type RelicSlots =
   | "Head"
   | "Hands"
   | "Body"
@@ -53,7 +53,7 @@ type RelicSlots =
 
 type RelicSetMetadata = {
   pieces: {
-    [key in RelicSlots]?: Relic;
+    [key in RelicSlots]?: RelicMetadata;
   };
   // select index 0 if 2 pc set bonus and index 1 if 4 pc set bonus
   desc: string[];
@@ -79,7 +79,7 @@ type RelicSetMetadata = {
   modifiers: CharacterModifier[][];
 };
 
-type Relic = {
+export type RelicMetadata = {
   name: string;
   icon: string;
 };

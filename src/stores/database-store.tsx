@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
-import { GameData } from "@/types/game-data";
-import { UserData } from "@/types/user-data/hsr-scanner";
+import { GameData } from "@/types/game-data-types";
+import { UserData } from "@/types/user-data/hsr-scanner-types";
 
 const initialGameDataState: GameData = {
   version: "0.0.0",

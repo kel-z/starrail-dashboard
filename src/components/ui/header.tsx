@@ -4,7 +4,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { Separator } from "@/components/ui/separator";
-import { Tab } from "@/types/app";
+import { Tab } from "@/types/app-types";
 import { NavLink } from "react-router-dom";
 
 function Header() {
@@ -34,7 +34,7 @@ function Header() {
 
   return (
     <div className="flex h-12 w-full items-center gap-3 border-b">
-      <div className="hidden h-5 w-full items-center gap-2 sm:flex">
+      <div className="flex h-5 w-full items-center gap-2">
         <div className=" mx-5 text-lg font-bold">Star Rail Dashboard</div>
         <Separator orientation="vertical" />
         <NavigationMenu>

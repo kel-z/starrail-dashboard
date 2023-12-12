@@ -1,5 +1,5 @@
-import { LightCone } from "@/types/user-data/hsr-scanner";
-import { GameData, LightConeMetadata } from "@/types/game-data";
+import { LightCone } from "@/types/user-data/hsr-scanner-types";
+import { GameData, LightConeMetadata } from "@/types/game-data-types";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { getRarityStyle } from "@/utils/style-utils";
 import LightConeHoverCardContent from "./LightConeHoverContent";
@@ -54,26 +54,22 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
         <HoverCardTrigger className="my-auto">
           <div className="flex flex-row items-center px-2 pt-2">
             <img
-              className="h-28 w-24 rounded border"
+              className="h-28 w-24 rounded"
               src={metadata.icon}
               alt={lc.key}
             />
-            <div className="flex flex-1 flex-col p-2 text-sm">
+            <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-base font-semibold ${getRarityStyle(
+                className={`text-sm font-semibold ${getRarityStyle(
                   metadata.rarity,
                 )}`}
               >
                 {lc.key}
               </div>
               <div className="font-medium">
-                Lv. {lc.level}
-                <span className="font-normal text-muted">
-                  {" "}
-                  / {20 + 10 * lc.ascension}
-                </span>
+                Lv. {lc.level} / {20 + 10 * lc.ascension}
               </div>
-              <div className="font-medium">
+              <div className="text-xs text-muted-foreground">
                 Superimposition {lc.superimposition}
               </div>
             </div>
