@@ -1,5 +1,5 @@
-function Relics() {
-  return <div>rel</div>;
-}
+import { RelicSortOption } from "./types/sort-types";
+import RelicsPage from "./routes/relics-page";
 
-export default Relics;
+export type { RelicSortOption };
+export { RelicsPage };

@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./providers/theme-provider";
-import { routes } from "./routes";
 import { HsrDataProvider } from "./stores/database-store";
+import routes from "./routes";
 
 function App() {
   return (

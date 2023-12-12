@@ -2,8 +2,8 @@ import { LightCone } from "@/types/user-data/hsr-scanner-types";
 import { GameData, LightConeMetadata } from "@/types/game-data-types";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { getRarityStyle } from "@/utils/style-utils";
-import LightConeHoverCardContent from "./LightConeHoverContent";
-import CharacterSelect from "@/components/ui/select-character";
+import LightConeHoverCardContent from "./light-cone-hover";
+import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
 

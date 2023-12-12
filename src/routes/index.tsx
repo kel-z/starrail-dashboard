@@ -1,22 +1,22 @@
 import Characters from "@/features/characters";
-import LightCones from "@/features/light-cones";
-import Relics from "@/features/relics";
+import { LightConesPage } from "@/features/light-cones";
+import { RelicsPage } from "@/features/relics";
 import MainLayout from "@/components/layouts/main-layout";
 import { createHashRouter } from "react-router-dom";
-import Settings from "@/features/settings";
+import { SettingsPage } from "@/features/settings";
 
-export const routes = createHashRouter([
+const routes = createHashRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
       {
         path: "light-cones",
-        element: <LightCones />,
+        element: <LightConesPage />,
       },
       {
         path: "relics",
-        element: <Relics />,
+        element: <RelicsPage />,
       },
       {
         path: "characters",
@@ -24,8 +24,10 @@ export const routes = createHashRouter([
       },
       {
         path: "settings",
-        element: <Settings />,
+        element: <SettingsPage />,
       },
     ],
   },
 ]);
+
+export default routes;
