@@ -3,7 +3,7 @@ import { GameData, LightConeMetadata } from "@/types/game-data";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { getRarityStyle } from "@/utils/style-utils";
 import LightConeHoverCardContent from "./LightConeHoverContent";
-import CharacterSelect from "@/features/character-select";
+import CharacterSelect from "@/components/ui/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
 
@@ -30,13 +30,15 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
       return;
     }
 
-    const equipped = userData.light_cones.find(
+    // If the character already has a light cone, swap them
+    const prevLightCone = userData.light_cones.find(
       (lc) => lc.location === character,
     );
-    if (equipped) {
-      equipped.location = "";
+    if (prevLightCone) {
+      prevLightCone.location = lc.location || "";
     }
     lc.location = character;
+
     setUserData({ ...userData });
   };
 
