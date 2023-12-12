@@ -29,14 +29,20 @@ function Scrollable({ children, loadMore, doneLoading }: ScrollableProps) {
   }, [loadMore]);
 
   return (
-    <>
+    <div className="relative">
       {children}
       {!doneLoading && (
-        <div ref={loadMoreRef} className="m-5 mx-auto my-auto h-24 w-24 p-5">
-          <Spinner />
-        </div>
+        <>
+          <div
+            ref={loadMoreRef}
+            className="absolute bottom-0 h-[36rem] w-full"
+          ></div>
+          <div className="m-5 mx-auto my-auto h-24 w-24 p-5">
+            <Spinner />
+          </div>
+        </>
       )}
-    </>
+    </div>
   );
 }
 
