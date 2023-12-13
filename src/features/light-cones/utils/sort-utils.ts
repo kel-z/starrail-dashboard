@@ -4,14 +4,14 @@ import { LightConeSortOption } from "../types/sort-types";
 
 export const calculateScore = (
   sortBy: LightConeSortOption,
-  item: LightCone,
+  lc: LightCone,
   metadata: LightConeMetadata,
 ): number => {
   switch (sortBy.value) {
     case "level":
-      return item.level * 100 + metadata.rarity * 10 + item.ascension;
+      return lc.level * 100 + metadata.rarity * 10 + lc.ascension;
     case "rarity":
-      return metadata.rarity * 100 + item.level * 10 + item.ascension;
+      return metadata.rarity * 100 + lc.level * 10 + lc.ascension;
     default:
       return 0;
   }

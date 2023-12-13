@@ -45,7 +45,7 @@ function SelectSort<T extends string>({
           </SelectContent>
         </Select>
         <Button variant="outline" onClick={() => setSortAsc(!sortAsc)}>
-          {sortAsc ? "Ascending" : "Descending"}
+          {sortAsc ? "Low to high" : "High to low"}
         </Button>
       </div>
     </div>

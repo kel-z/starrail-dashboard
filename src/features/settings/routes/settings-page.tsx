@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { loadHsrScannerDataString } from "../utils/user-data-utils";
 import { HsrDataContext, defaultUserDataState } from "@/stores/database-store";
-import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createRef, useContext, useEffect, useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { Trash2 } from "lucide-react";
 
 function SettingsPage() {
   const { userData, setUserData } = useContext(HsrDataContext);
@@ -96,15 +96,15 @@ function SettingsPage() {
             Export
           </Button>
           <Button variant="destructive" onClick={resetUserData}>
-            <FontAwesomeIcon icon={regular("trash-alt")} />
+            <Trash2 size={20} />
           </Button>
         </div>
 
         <Separator />
 
-        <textarea
+        <Textarea
           ref={textAreaRef}
-          className="h-96 w-full rounded border bg-background p-4 font-mono text-sm"
+          className="h-[50vh] font-mono"
           readOnly={!editMode}
         />
 

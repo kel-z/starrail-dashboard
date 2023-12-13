@@ -6,6 +6,7 @@ import LightConeHoverCardContent from "./light-cone-hover";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
+import { X } from "lucide-react";
 
 interface LightConeCardProps {
   lc: LightCone;
@@ -45,12 +46,10 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
   return (
     <HoverCard>
       <div className="relative flex flex-col justify-between overflow-hidden rounded border">
-        <div
-          className="absolute right-2 top-1 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
+        <X
+          className="absolute right-2 top-2 h-4 w-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
           onClick={deleteLightCone}
-        >
-          ✕
-        </div>
+        />
         <HoverCardTrigger className="my-auto">
           <div className="flex flex-row items-center px-2 pt-2">
             <img
@@ -66,7 +65,7 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
               >
                 {lc.key}
               </div>
-              <div className="font-medium">
+              <div className="text-xl font-bold">
                 Lv. {lc.level} / {20 + 10 * lc.ascension}
               </div>
               <div className="text-xs text-muted-foreground">

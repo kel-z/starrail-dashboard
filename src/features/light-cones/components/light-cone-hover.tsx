@@ -18,7 +18,7 @@ function LightConeHoverCardContent({
 
   return (
     <HoverCardContent className="text-sm">
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between gap-x-2">
         <div className={`font-semibold ${getRarityStyle(metadata.rarity)}`}>
           {lc.key}
         </div>

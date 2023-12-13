@@ -33,10 +33,8 @@ function LightConesPage() {
   const doneLoading = userData.light_cones.length <= pageNum * itemsPerPage;
   const displayedLightCones = [...userData.light_cones]
     .sort((a, b) => {
-      const aMetadata =
-        gameData.light_cones[a.key as keyof typeof gameData.light_cones];
-      const bMetadata =
-        gameData.light_cones[b.key as keyof typeof gameData.light_cones];
+      const aMetadata = gameData.light_cones[a.key];
+      const bMetadata = gameData.light_cones[b.key];
 
       if (sortBy.value === "key") {
         return sortAsc

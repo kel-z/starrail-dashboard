@@ -45,7 +45,7 @@ export type Character = {
   };
 };
 
-type RelicMainstatKey =
+export type RelicMainstatKey =
   | "HP"
   | "ATK"
   | "DEF"
@@ -78,7 +78,7 @@ type RelicSubstatKey =
   | "CRIT DMG_"
   | "Break Effect_";
 
-type RelicSubstat = {
+export type RelicSubstat = {
   key: RelicSubstatKey;
   value: number;
 };

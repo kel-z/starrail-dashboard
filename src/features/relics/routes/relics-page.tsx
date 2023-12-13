@@ -5,6 +5,7 @@ import TabLayout from "@/components/layouts/tab-layout";
 import Scrollable from "@/components/scrollable";
 import { SelectSort } from "@/features/select-sort";
 import RelicCard from "../components/relic-card";
+import { calculateScore } from "../utils/sort-utils";
 
 const itemsPerPage = 36;
 
@@ -34,7 +35,29 @@ function RelicsPage() {
   const [pageNum, setPageNum] = useState(1);
 
   const doneLoading = userData.relics.length <= pageNum * itemsPerPage;
-  const displayedRelics = [...userData.relics].slice(0, pageNum * itemsPerPage);
+  const displayedRelics = [...userData.relics]
+    .sort((a, b) => {
+      switch (sortBy.value) {
+        case "name":
+          const aMetadata = gameData.relic_sets[a.set].pieces[a.slot] || null;
+          const bMetadata = gameData.relic_sets[b.set].pieces[b.slot] || null;
+          if (!aMetadata || !bMetadata) {
+            return 0;
+          }
+          return sortAsc
+            ? aMetadata.name.localeCompare(bMetadata.name)
+            : bMetadata.name.localeCompare(aMetadata.name);
+        case "set":
+          return sortAsc
+            ? a.set.localeCompare(b.set)
+            : b.set.localeCompare(a.set);
+        default:
+          const scoreA = calculateScore(sortBy, a);
+          const scoreB = calculateScore(sortBy, b);
+          return sortAsc ? scoreA - scoreB : scoreB - scoreA;
+      }
+    })
+    .slice(0, pageNum * itemsPerPage);
 
   const loadMore = () => {
     setPageNum(pageNum + 1);

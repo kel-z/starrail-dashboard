@@ -5,6 +5,10 @@ import { getRarityStyle } from "@/utils/style-utils";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
+import { X } from "lucide-react";
+import RelicSubstats from "./relic-substats";
+import { Separator } from "@/components/ui/separator";
+import RelicHoverCardContent from "./relic-hover";
 
 interface LightConeCardProps {
   relic: Relic;
@@ -31,7 +35,9 @@ function RelicCard({ relic, metadata }: LightConeCardProps) {
     }
 
     // If the character already has a relic, swap them
-    const prevRelic = userData.relics.find((r) => r.location === character);
+    const prevRelic = userData.relics.find(
+      (r) => r.location === character && r.slot === relic.slot,
+    );
     if (prevRelic) {
       prevRelic.location = relic.location || "";
     }
@@ -43,37 +49,40 @@ function RelicCard({ relic, metadata }: LightConeCardProps) {
   return (
     <HoverCard>
       <div className="relative flex flex-col justify-between overflow-hidden rounded border">
-        <div
-          className="absolute right-2 top-1 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
+        <X
+          className="absolute right-2 top-2 h-4 w-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
           onClick={deleteRelic}
-        >
-          ✕
-        </div>
-        <HoverCardTrigger className="my-auto">
-          <div className="flex flex-row items-center px-2 pt-2">
+        />
+        <HoverCardTrigger className="flex h-full flex-col justify-between gap-2">
+          <div className="my-auto flex flex-row items-center px-2 pt-2">
             <img
               className="h-24 w-24 rounded"
               src={metadata.icon}
               alt={metadata.name}
             />
-            <div className="flex flex-1 flex-col p-2 text-sm">
+            <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-base font-semibold ${getRarityStyle(
+                className={`text-sm font-semibold ${getRarityStyle(
                   relic.rarity,
                 )}`}
               >
                 {metadata.name}
               </div>
-              <div className="font-medium">+{relic.level}</div>
+              <div className="text-lg font-bold">{relic.mainstat}</div>
+              <div className="text-xs text-muted-foreground">
+                {relic.slot} +{relic.level}
+              </div>
             </div>
           </div>
+          <Separator />
+          <RelicSubstats {...{ relic }} />
         </HoverCardTrigger>
         <CharacterSelect
           selected={relic.location}
           onCharacterSelect={onCharacterSelect}
         />
       </div>
-      {/* <LightConeHoverCardContent {...{ lc, metadata }} /> */}
+      <RelicHoverCardContent {...{ relic, metadata }} />
     </HoverCard>
   );
 }
