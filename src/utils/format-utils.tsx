@@ -21,7 +21,7 @@ export const formatDesc = (desc: string, params: string[]) => {
         </span>,
       );
       if (parts[i + 1]) {
-        parts[i + 1] = parts[i + 1].replace(/%/g, "");
+        parts[i + 1] = parts[i + 1].replace(/^%/, "");
       }
     } else {
       result.push(<span key={i}>{part}</span>);
