@@ -15,7 +15,7 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { Check, ChevronsUpDown, UserRoundMinus } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/tailwind-utils";
 import { ScrollArea } from "./ui/scroll-area";
 
 interface CharacterSelectProps {

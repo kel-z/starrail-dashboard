@@ -1,4 +1,4 @@
-import Characters from "@/features/characters";
+import { CharactersPage } from "@/features/characters";
 import { LightConesPage } from "@/features/light-cones";
 import { RelicsPage } from "@/features/relics";
 import MainLayout from "@/components/layouts/main-layout";
@@ -20,7 +20,7 @@ const routes = createHashRouter([
       },
       {
         path: "characters",
-        element: <Characters />,
+        element: <CharactersPage />,
       },
       {
         path: "settings",

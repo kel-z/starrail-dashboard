@@ -1,6 +1,6 @@
 import {
   CharacterSkillKey,
-  CharacterTraceKey,
+  AllCharacterTraceKey,
   RelicSlots as RelicSlot,
 } from "../game-data-types";
 
@@ -41,9 +41,11 @@ export type Character = {
     [key in CharacterSkillKey]: number;
   };
   traces: {
-    [key in Exclude<CharacterTraceKey, "technique">]: number;
+    [key in CharacterTraceKey]: boolean;
   };
 };
+
+export type CharacterTraceKey = Exclude<AllCharacterTraceKey, "technique">;
 
 export type RelicMainstatKey =
   | "HP"
@@ -64,7 +66,7 @@ export type RelicMainstatKey =
   | "Outgoing Healing Boost"
   | "Break Effect";
 
-type RelicSubstatKey =
+export type RelicSubstatKey =
   | "HP"
   | "HP_"
   | "ATK"

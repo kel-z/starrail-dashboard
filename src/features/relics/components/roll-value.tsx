@@ -5,7 +5,10 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { AlertTriangle, Info } from "lucide-react";
-import { getSubstatRollValue, getSubstatValue } from "../utils/relic-utils";
+import {
+  getSubstatRollValue,
+  getSubstatValue,
+} from "../utils/relic-stat-utils";
 import { Relic, RelicSubstat } from "@/types/user-data/hsr-scanner-types";
 
 interface RollValueProps {

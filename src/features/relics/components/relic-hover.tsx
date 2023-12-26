@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { RelicMetadata } from "@/types/game-data-types";
 import { Relic } from "@/types/user-data/hsr-scanner-types";
 import { getRarityStyle } from "@/utils/style-utils";
-import { getMainstatDisplayValue } from "../utils/relic-utils";
+import { getMainstatDisplayValue } from "../utils/relic-format-utils";
 import RollValue from "./roll-value";
 
 interface RelicHoverCardContentProps {

@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { LightConeSortOption } from "../types/sort-types";
+import { LightConeSortOption } from "../types/light-cone-sort-types";
 import { HsrDataContext } from "@/stores/database-store";
 import TabLayout from "@/components/layouts/tab-layout";
-import { calculateScore } from "../utils/sort-utils";
+import { calculateScore } from "../utils/light-cone-sort-utils";
 import Scrollable from "@/components/scrollable";
 import { SelectSort } from "@/features/select-sort";
 import LightConeCard from "../components/light-cone-card";
@@ -67,13 +67,13 @@ function LightConesPage() {
           />
         </div>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {displayedLightCones.map((lc, i) => (
+          {displayedLightCones.map((lightCone, i) => (
             <LightConeCard
               key={i}
-              lc={lc}
+              lightCone={lightCone}
               metadata={
                 gameData.light_cones[
-                  lc.key as keyof typeof gameData.light_cones
+                  lightCone.key as keyof typeof gameData.light_cones
                 ]
               }
             />

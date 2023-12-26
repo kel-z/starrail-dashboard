@@ -1,4 +1,4 @@
-import { LightConeSortOption } from "./types/sort-types";
+import { LightConeSortOption } from "./types/light-cone-sort-types";
 import LightConesPage from "./routes/light-cones-page";
 
 export type { LightConeSortOption };

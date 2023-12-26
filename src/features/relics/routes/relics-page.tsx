@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { RelicSortOption } from "../types/sort-types";
+import { RelicSortOption } from "../types/relic-sort-types";
 import { HsrDataContext } from "@/stores/database-store";
 import TabLayout from "@/components/layouts/tab-layout";
 import Scrollable from "@/components/scrollable";
 import { SelectSort } from "@/features/select-sort";
 import RelicCard from "../components/relic-card";
-import { calculateScore } from "../utils/sort-utils";
+import { calculateScore } from "../utils/relic-sort-utils";
 
 const itemsPerPage = 36;
 

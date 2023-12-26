@@ -9,15 +9,15 @@ import { HsrDataContext } from "@/stores/database-store";
 import { X } from "lucide-react";
 
 interface LightConeCardProps {
-  lc: LightCone;
+  lightCone: LightCone;
   metadata: LightConeMetadata;
 }
-function LightConeCard({ lc, metadata }: LightConeCardProps) {
+function LightConeCard({ lightCone, metadata }: LightConeCardProps) {
   const { userData, setUserData } = useContext(HsrDataContext);
 
   const deleteLightCone = () => {
     userData.light_cones = userData.light_cones.filter(
-      (lightCone) => lightCone !== lc,
+      (lc) => lc !== lightCone,
     );
     setUserData({ ...userData });
   };
@@ -26,7 +26,7 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
     character: (keyof GameData["characters"] & string) | null,
   ) => {
     if (!character) {
-      lc.location = "";
+      lightCone.location = "";
       setUserData({ ...userData });
       return;
     }
@@ -36,9 +36,9 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
       (lc) => lc.location === character,
     );
     if (prevLightCone) {
-      prevLightCone.location = lc.location || "";
+      prevLightCone.location = lightCone.location || "";
     }
-    lc.location = character;
+    lightCone.location = character;
 
     setUserData({ ...userData });
   };
@@ -55,7 +55,7 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
             <img
               className="h-28 w-24 rounded"
               src={metadata.icon}
-              alt={lc.key}
+              alt={lightCone.key}
             />
             <div className="flex flex-1 flex-col p-2">
               <div
@@ -63,23 +63,23 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
                   metadata.rarity,
                 )}`}
               >
-                {lc.key}
+                {lightCone.key}
               </div>
               <div className="text-xl font-bold">
-                Lv. {lc.level} / {20 + 10 * lc.ascension}
+                Lv. {lightCone.level} / {20 + 10 * lightCone.ascension}
               </div>
               <div className="text-xs text-muted-foreground">
-                Superimposition {lc.superimposition}
+                Superimposition {lightCone.superimposition}
               </div>
             </div>
           </div>
         </HoverCardTrigger>
         <CharacterSelect
-          selected={lc.location}
+          selected={lightCone.location}
           onCharacterSelect={onCharacterSelect}
         />
       </div>
-      <LightConeHoverCardContent {...{ lc, metadata }} />
+      <LightConeHoverCardContent {...{ lightCone, metadata }} />
     </HoverCard>
   );
 }

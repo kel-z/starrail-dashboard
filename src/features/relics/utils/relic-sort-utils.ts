@@ -1,5 +1,5 @@
 import { Relic } from "@/types/user-data/hsr-scanner-types";
-import { RelicSortOption } from "..";
+import { RelicSortOption } from "../types/relic-sort-types";
 
 export const calculateScore = (
   sortBy: RelicSortOption,
