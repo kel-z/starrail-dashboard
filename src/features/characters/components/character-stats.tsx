@@ -26,7 +26,10 @@ function CharacterStats({ character, metadata }: CharacterStatsProps) {
   return (
     <div className="flex h-full w-full flex-col">
       {Object.entries(stats)
-        .filter(([key]) => !paths.includes(key))
+        .filter(
+          ([key]) =>
+            !paths.includes(key) || key === metadata.element.toLowerCase(),
+        )
         .map(([key, value], index) => {
           return (
             <div

@@ -68,15 +68,9 @@ function LightConesPage() {
         </div>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {displayedLightCones.map((lightCone, i) => (
-            <LightConeCard
-              key={i}
-              lightCone={lightCone}
-              metadata={
-                gameData.light_cones[
-                  lightCone.key as keyof typeof gameData.light_cones
-                ]
-              }
-            />
+            <div key={i} className="rounded border">
+              <LightConeCard lightCone={lightCone} />
+            </div>
           ))}
         </div>
       </Scrollable>

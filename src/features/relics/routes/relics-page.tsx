@@ -81,11 +81,6 @@ function RelicsPage() {
             <RelicCard
               key={i}
               relic={r}
-              metadata={
-                gameData.relic_sets[r.set as keyof typeof gameData.relic_sets][
-                  "pieces"
-                ][r.slot] || null
-              }
             />
           ))}
         </div>

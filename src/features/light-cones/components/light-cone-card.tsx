@@ -1,7 +1,7 @@
 import { LightCone } from "@/types/user-data/hsr-scanner-types";
 import { GameData, LightConeMetadata } from "@/types/game-data-types";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import { getRarityStyle } from "@/utils/style-utils";
+import { getRarityTextStyle } from "@/utils/style-utils";
 import LightConeHoverCardContent from "./light-cone-hover";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
@@ -10,10 +10,10 @@ import { X } from "lucide-react";
 
 interface LightConeCardProps {
   lightCone: LightCone;
-  metadata: LightConeMetadata;
 }
-function LightConeCard({ lightCone, metadata }: LightConeCardProps) {
-  const { userData, setUserData } = useContext(HsrDataContext);
+function LightConeCard({ lightCone }: LightConeCardProps) {
+  const { userData, setUserData, gameData } = useContext(HsrDataContext);
+  const metadata = gameData.light_cones[lightCone.key] as LightConeMetadata;
 
   const deleteLightCone = () => {
     userData.light_cones = userData.light_cones.filter(
@@ -45,7 +45,7 @@ function LightConeCard({ lightCone, metadata }: LightConeCardProps) {
 
   return (
     <HoverCard>
-      <div className="relative flex flex-col justify-between overflow-hidden rounded border">
+      <div className="relative flex flex-col justify-between overflow-hidden">
         <X
           className="absolute right-2 top-2 h-4 w-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
           onClick={deleteLightCone}
@@ -59,7 +59,7 @@ function LightConeCard({ lightCone, metadata }: LightConeCardProps) {
             />
             <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-sm font-semibold ${getRarityStyle(
+                className={`text-sm font-semibold ${getRarityTextStyle(
                   metadata.rarity,
                 )}`}
               >

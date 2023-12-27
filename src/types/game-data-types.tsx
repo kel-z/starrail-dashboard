@@ -44,7 +44,7 @@ type LightConeAbility = {
   modifiers: CharacterModifier[][];
 };
 
-export type RelicSlots =
+export type RelicSlot =
   | "Head"
   | "Hands"
   | "Body"
@@ -54,7 +54,7 @@ export type RelicSlots =
 
 type RelicSetMetadata = {
   pieces: {
-    [key in RelicSlots]?: RelicMetadata;
+    [key in RelicSlot]?: RelicMetadata;
   };
   // select index 0 if 2 pc set bonus and index 1 if 4 pc set bonus
   desc: string[];

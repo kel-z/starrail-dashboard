@@ -6,9 +6,8 @@ import { SelectSort } from "@/features/select-sort";
 import { CharacterSortOption } from "../types/character-sort-type";
 import { calculateScore } from "../utils/character-sort-utils";
 import CharacterCard from "../components/character-card";
-import { GameData } from "@/types/game-data-types";
 
-const itemsPerPage = 36;
+const itemsPerPage = 4;
 
 const sortOptions: CharacterSortOption[] = [
   {
@@ -76,16 +75,7 @@ function CharactersPage() {
         </div>
         <div className="grid grid-cols-1 gap-2">
           {displayedCharacters.map((character, i) => {
-            const characterKey = character.key.startsWith("Trailblazer")
-              ? character.key + (isTrailblazerFemale ? "#F" : "#M")
-              : character.key;
-            return (
-              <CharacterCard
-                key={i}
-                character={character}
-                metadata={gameData.characters[characterKey]}
-              />
-            );
+            return <CharacterCard key={i} character={character} />;
           })}
         </div>
       </Scrollable>

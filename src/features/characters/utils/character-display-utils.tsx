@@ -83,6 +83,13 @@ export const getStatDisplayValue = (
     case "energy":
     case "heal":
     case "break":
+    case "wind":
+    case "fire":
+    case "ice":
+    case "lightning":
+    case "quantum":
+    case "imaginary":
+    case "physical":
       return `${(Math.floor(value * 1000) / 10).toFixed(1)}%`;
     default:
       return Math.floor(value).toString();

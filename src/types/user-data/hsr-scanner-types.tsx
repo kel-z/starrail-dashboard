@@ -1,7 +1,7 @@
 import {
   CharacterSkillKey,
   AllCharacterTraceKey,
-  RelicSlots as RelicSlot,
+  RelicSlot,
 } from "../game-data-types";
 
 export type UserData = {

@@ -1,7 +1,7 @@
 import { HoverCardContent } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { getLightConeStats } from "@/features/light-cones/utils/light-cone-stat-utils";
-import { getRarityStyle } from "@/utils/style-utils";
+import { getRarityTextStyle } from "@/utils/style-utils";
 import { LightConeMetadata } from "@/types/game-data-types";
 import { LightCone } from "@/types/user-data/hsr-scanner-types";
 import { formatDesc } from "@/utils/format-utils";
@@ -23,7 +23,7 @@ function LightConeHoverCardContent({
   return (
     <HoverCardContent className="text-sm">
       <div className="flex flex-wrap justify-between gap-x-2">
-        <div className={`font-semibold ${getRarityStyle(metadata.rarity)}`}>
+        <div className={`font-semibold ${getRarityTextStyle(metadata.rarity)}`}>
           {lightCone.key}
         </div>
         <div className="text-muted-foreground">

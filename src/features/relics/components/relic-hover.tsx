@@ -2,7 +2,7 @@ import { HoverCardContent } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { RelicMetadata } from "@/types/game-data-types";
 import { Relic } from "@/types/user-data/hsr-scanner-types";
-import { getRarityStyle } from "@/utils/style-utils";
+import { getRarityTextStyle } from "@/utils/style-utils";
 import { getMainstatDisplayValue } from "../utils/relic-format-utils";
 import RollValue from "./roll-value";
 
@@ -17,7 +17,7 @@ function RelicHoverCardContent({
   return (
     <HoverCardContent className="text-sm">
       <div className="flex flex-wrap justify-between gap-x-2">
-        <div className={`font-semibold ${getRarityStyle(relic.rarity)}`}>
+        <div className={`font-semibold ${getRarityTextStyle(relic.rarity)}`}>
           {metadata.name}
         </div>
         <div className="text-muted-foreground">+{relic.level}</div>

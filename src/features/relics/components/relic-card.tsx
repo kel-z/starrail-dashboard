@@ -1,7 +1,7 @@
 import { Relic } from "@/types/user-data/hsr-scanner-types";
 import { GameData, RelicMetadata } from "@/types/game-data-types";
 import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import { getRarityStyle } from "@/utils/style-utils";
+import { getRarityTextStyle } from "@/utils/style-utils";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
@@ -12,13 +12,12 @@ import RelicHoverCardContent from "./relic-hover";
 
 interface LightConeCardProps {
   relic: Relic;
-  metadata: RelicMetadata | null;
 }
-function RelicCard({ relic, metadata }: LightConeCardProps) {
-  const { userData, setUserData } = useContext(HsrDataContext);
-  if (!metadata) {
-    return null;
-  }
+function RelicCard({ relic }: LightConeCardProps) {
+  const { userData, setUserData, gameData } = useContext(HsrDataContext);
+  const metadata = gameData.relic_sets[
+    relic.set as keyof typeof gameData.relic_sets
+  ]["pieces"][relic.slot] as RelicMetadata;
 
   const deleteRelic = () => {
     userData.relics = userData.relics.filter((r) => r !== relic);
@@ -62,7 +61,7 @@ function RelicCard({ relic, metadata }: LightConeCardProps) {
             />
             <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-sm font-semibold ${getRarityStyle(
+                className={`text-sm font-semibold ${getRarityTextStyle(
                   relic.rarity,
                 )}`}
               >
