@@ -173,7 +173,6 @@ export type AllCharacterTraceKey =
   | "ability_1"
   | "ability_2"
   | "ability_3"
-  | "stat_0"
   | "stat_1"
   | "stat_2"
   | "stat_3"

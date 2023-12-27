@@ -1,10 +1,12 @@
 import { UserData } from "@/types/user-data/hsr-scanner-types";
+import { SroData } from "@/types/user-data/sro-types";
+import { convertSroToHsrScannerData } from "./sro-conversion-utils";
 
 export const loadHsrScannerDataString = (
   userDataString: string,
   setUserData: (userData: UserData) => void,
 ): boolean => {
-  let userDataJSON: UserData;
+  let userDataJSON: UserData | SroData;
   try {
     userDataJSON = JSON.parse(userDataString);
   } catch (e) {
@@ -12,8 +14,17 @@ export const loadHsrScannerDataString = (
   }
 
   if (
+    "format" in userDataJSON &&
+    (userDataJSON.format === "SRO" || userDataJSON.format === "SROD")
+  ) {
+    const convertedUserData = convertSroToHsrScannerData(userDataJSON);
+    setUserData(convertedUserData);
+    return true;
+  }
+
+  if (
     !userDataJSON.source ||
-    userDataJSON.source !== "HSR-Scanner" ||
+    !["HSR-Scanner", "SRD"].includes(userDataJSON.source) ||
     !userDataJSON.version ||
     userDataJSON.version !== 3
   ) {
