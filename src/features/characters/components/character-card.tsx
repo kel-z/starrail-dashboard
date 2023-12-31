@@ -74,7 +74,7 @@ function CharacterCard({ character }: CharacterCardProps) {
         onClick={downloadImage}
       />
       <div
-        className="flex h-fit flex-col overflow-hidden p-2 md:flex-row"
+        className="flex h-fit flex-col overflow-hidden md:flex-row"
         ref={componentRef}
       >
         <div className="relative mx-auto h-96 sm:w-96 md:h-auto md:w-64 xl:w-96">
@@ -84,7 +84,7 @@ function CharacterCard({ character }: CharacterCardProps) {
             alt={character.key}
           />
         </div>
-        <div className="z-10 h-full flex-1 rounded bg-muted/50 p-2 backdrop-blur-lg">
+        <div className="z-10 h-full flex-1 bg-background/75 p-3 backdrop-blur-lg">
           <div className="text-2xl">{displayName}</div>
           <div className="text-lg">
             Lv. {character.level}{" "}
@@ -93,26 +93,34 @@ function CharacterCard({ character }: CharacterCardProps) {
             </span>
           </div>
           <div className="flex flex-col gap-2 lg:flex-row">
-            <div className=" flex-1 rounded bg-background/50 p-3">
+            <div className=" flex-1 rounded border bg-background/50 p-3">
               <CharacterStats {...{ character, metadata }} />
             </div>
-            <div className="flex items-center rounded bg-background/50 p-3 lg:w-[28rem]">
+            <div className="flex items-center rounded border bg-background/50 p-3 lg:w-[28rem]">
               <CharacterTraces {...{ character, metadata }} />
             </div>
           </div>
           {equippedLightCone && (
-            <div className="mt-2 rounded bg-background/50 p-3">
-              <CharacterLightCone lightCone={equippedLightCone} />
+            <div className="mt-2 grid grid-cols-4 grid-rows-2 gap-2 rounded">
+              <div className="col-start-1 row-span-2 row-start-1">
+                <CharacterLightCone lightCone={equippedLightCone} />
+              </div>
+              {Object.entries(equippedRelics).map(([slot, relic]) => {
+                if (!relic) {
+                  return null;
+                }
+                return <CharacterRelic key={slot} relic={relic} />;
+              })}
             </div>
           )}
-          <div className="mt-2 grid grid-cols-3 gap-2 lg:grid-cols-6">
+          {/* <div className="mt-2 grid grid-cols-3 gap-2 lg:grid-cols-6">
             {Object.entries(equippedRelics).map(([slot, relic]) => {
               if (!relic) {
                 return null;
               }
               return <CharacterRelic key={slot} relic={relic} />;
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

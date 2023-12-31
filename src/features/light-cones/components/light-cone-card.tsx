@@ -1,8 +1,12 @@
 import { LightCone } from "@/types/user-data/hsr-scanner-types";
 import { GameData, LightConeMetadata } from "@/types/game-data-types";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { getRarityTextStyle } from "@/utils/style-utils";
-import LightConeHoverCardContent from "./light-cone-hover";
+import LightConeDetails from "./light-cone-details";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
@@ -79,7 +83,9 @@ function LightConeCard({ lightCone }: LightConeCardProps) {
           onCharacterSelect={onCharacterSelect}
         />
       </div>
-      <LightConeHoverCardContent {...{ lightCone, metadata }} />
+      <HoverCardContent>
+        <LightConeDetails {...{ lightCone, metadata }} />
+      </HoverCardContent>
     </HoverCard>
   );
 }

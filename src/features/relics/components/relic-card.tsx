@@ -1,6 +1,10 @@
 import { Relic } from "@/types/user-data/hsr-scanner-types";
 import { GameData, RelicMetadata } from "@/types/game-data-types";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { getRarityTextStyle } from "@/utils/style-utils";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
@@ -8,7 +12,8 @@ import { HsrDataContext } from "@/stores/database-store";
 import { X } from "lucide-react";
 import RelicSubstats from "./relic-substats";
 import { Separator } from "@/components/ui/separator";
-import RelicHoverCardContent from "./relic-hover";
+import RelicDetails from "./relic-details";
+import { getMainstatDisplayValue } from "../utils/relic-format-utils";
 
 interface LightConeCardProps {
   relic: Relic;
@@ -67,7 +72,10 @@ function RelicCard({ relic }: LightConeCardProps) {
               >
                 {metadata.name}
               </div>
-              <div className="text-lg font-bold">{relic.mainstat}</div>
+              <div className="font-bold">
+                <div>{relic.mainstat}</div>
+                <div className="text-lg">{getMainstatDisplayValue(relic)}</div>
+              </div>
               <div className="text-xs text-muted-foreground">
                 {relic.slot} +{relic.level}
               </div>
@@ -81,7 +89,9 @@ function RelicCard({ relic }: LightConeCardProps) {
           onCharacterSelect={onCharacterSelect}
         />
       </div>
-      <RelicHoverCardContent {...{ relic, metadata }} />
+      <HoverCardContent>
+        <RelicDetails {...{ relic, metadata }} />
+      </HoverCardContent>
     </HoverCard>
   );
 }

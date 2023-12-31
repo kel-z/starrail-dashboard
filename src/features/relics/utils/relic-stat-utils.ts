@@ -46,3 +46,9 @@ export const hasFlatMainstat = (relic: Relic) => {
     (relic.mainstat === "SPD" && relic.slot === "Feet")
   );
 };
+
+export const getSubstatDisplayText = (substat: RelicSubstat) => {
+  return substat.key.endsWith("_")
+    ? substat.value.toFixed(1) + "%"
+    : substat.value;
+};

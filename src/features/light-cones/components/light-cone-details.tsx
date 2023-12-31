@@ -1,27 +1,34 @@
-import { HoverCardContent } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { getLightConeStats } from "@/features/light-cones/utils/light-cone-stat-utils";
 import { getRarityTextStyle } from "@/utils/style-utils";
 import { LightConeMetadata } from "@/types/game-data-types";
 import { LightCone } from "@/types/user-data/hsr-scanner-types";
 import { formatDesc } from "@/utils/format-utils";
+import { HsrDataContext } from "@/stores/database-store";
+import { useContext } from "react";
+import hpIcon from "@/assets/images/hp.png";
+import atkIcon from "@/assets/images/atk.png";
+import defIcon from "@/assets/images/def.png";
 
-interface LightConeHoverCardContentProps {
+interface LightConeDetailsProps {
   lightCone: LightCone;
-  metadata: LightConeMetadata;
 }
-function LightConeHoverCardContent({
-  lightCone,
-  metadata,
-}: LightConeHoverCardContentProps) {
+function LightConeDetails({ lightCone }: LightConeDetailsProps) {
+  const { gameData } = useContext(HsrDataContext);
+  const metadata = gameData.light_cones[lightCone.key] as LightConeMetadata;
   const stats = getLightConeStats(
     metadata,
     lightCone.level,
     lightCone.ascension,
   );
+  const iconMap: Record<string, string> = {
+    hp: hpIcon,
+    atk: atkIcon,
+    def: defIcon,
+  };
 
   return (
-    <HoverCardContent className="text-sm">
+    <div className="text-sm">
       <div className="flex flex-wrap justify-between gap-x-2">
         <div className={`font-semibold ${getRarityTextStyle(metadata.rarity)}`}>
           {lightCone.key}
@@ -31,10 +38,13 @@ function LightConeHoverCardContent({
         </div>
       </div>
       <Separator />
-      <div className="grid grid-cols-1 grid-rows-3 p-2 font-medium">
+      <div className="grid grid-cols-1 grid-rows-3 p-2">
         {Object.entries(stats).map(([key, value]) => (
           <div key={key} className="flex flex-row justify-between">
-            <div>{key.toUpperCase()}</div>
+            <div className="flex items-center gap-1">
+              <img src={iconMap[key]} alt={key} className="h-5 w-5" />
+              {key.toUpperCase()}
+            </div>
             <div>{Math.floor(value)}</div>
           </div>
         ))}
@@ -52,8 +62,8 @@ function LightConeHoverCardContent({
           metadata.ability.params[lightCone.superimposition - 1],
         )}
       </div>
-    </HoverCardContent>
+    </div>
   );
 }
 
-export default LightConeHoverCardContent;
+export default LightConeDetails;

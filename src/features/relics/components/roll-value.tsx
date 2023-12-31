@@ -6,6 +6,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { AlertTriangle, Info } from "lucide-react";
 import {
+  getSubstatDisplayText,
   getSubstatRollValue,
   getSubstatValue,
 } from "../utils/relic-stat-utils";
@@ -41,8 +42,7 @@ function RollValue({ relic, substat }: RollValueProps) {
           <Separator />
           <div className="text-center">
             <span className="font-semibold">
-              {substat.key.replace("_", "")}{" "}
-              {substat.value + (substat.key.endsWith("_") ? "%" : "")}
+              {substat.key.replace("_", "")} {getSubstatDisplayText(substat)}
             </span>{" "}
             is one of
             <div className="flex flex-col rounded border p-2 font-semibold">
