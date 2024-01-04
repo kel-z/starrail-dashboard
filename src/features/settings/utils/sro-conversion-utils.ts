@@ -103,7 +103,7 @@ export const convertSroToHsrScannerData = (sroData: SroData): UserData => {
     relic_sets: Record<string, string>;
     characters: Record<string, string>;
   } = JSON.parse(request.responseText);
-  
+
   if (sroData.lightCones) {
     for (const lc of sroData.lightCones) {
       const res: LightCone = {
@@ -141,7 +141,9 @@ export const convertSroToHsrScannerData = (sroData: SroData): UserData => {
       for (const sub of r.substats) {
         const substatKey = sroToHsrScannerSubMap[sub.key];
         if (!substatKey) continue;
-        const substatValue = sub.value;
+        const substatValue = sub.key.endsWith("_")
+          ? Math.round(sub.value * 1000) / 10
+          : sub.value;
         res.substats.push({
           key: substatKey,
           value: substatValue,

@@ -16,7 +16,7 @@ function CharacterRelic({ relic }: CharacterRelicProps) {
     gameData.relic_sets[relic.set].pieces[relic.slot as RelicSlot];
 
   return (
-    <div className="rounded border bg-background/50 p-3">
+    <div className="flex flex-col justify-between gap-1 rounded border bg-background/50 p-3">
       <div
         className={`flex items-center justify-between gap-x-2 text-sm ${getRarityTextStyle(
           relic.rarity,

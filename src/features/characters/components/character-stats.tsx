@@ -38,7 +38,7 @@ function CharacterStats({ character, metadata }: CharacterStatsProps) {
                 index % 2 === 0 ? "bg-background/50" : ""
               }`}
             >
-              <div className="flex flex-row items-center gap-1">
+              <div className="flex flex-row items-center gap-2">
                 {getStatsDisplayIconMap(key as CharacterStatKey)}
                 <div>{statsDisplayTextMap[key as CharacterStatKey]}</div>
               </div>

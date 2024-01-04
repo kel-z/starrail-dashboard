@@ -77,7 +77,7 @@ function CharacterCard({ character }: CharacterCardProps) {
         className="flex h-fit flex-col overflow-hidden md:flex-row"
         ref={componentRef}
       >
-        <div className="relative mx-auto h-96 sm:w-96 md:h-auto md:w-64 xl:w-96">
+        <div className="relative mx-auto h-96 sm:w-96 md:h-auto md:w-64 xl:w-[30rem]">
           <img
             className="absolute left-1/2 top-1/2 aspect-square h-full min-w-fit -translate-x-1/2 -translate-y-1/2 scale-[125%] transform"
             src={metadata.splash}
@@ -85,12 +85,14 @@ function CharacterCard({ character }: CharacterCardProps) {
           />
         </div>
         <div className="z-10 h-full flex-1 bg-background/75 p-3 backdrop-blur-lg">
-          <div className="text-2xl">{displayName}</div>
-          <div className="text-lg">
-            Lv. {character.level}{" "}
-            <span className="text-muted-foreground">
-              / {20 + 10 * character.ascension}
-            </span>
+          <div className="flex flex-col">
+            <div className="text-2xl">{displayName}</div>
+            <div className="text-lg">
+              Lv. {character.level}{" "}
+              <span className="text-muted-foreground">
+                / {20 + 10 * character.ascension}
+              </span>
+            </div>
           </div>
           <div className="flex flex-col gap-2 lg:flex-row">
             <div className=" flex-1 rounded border bg-background/50 p-3">
@@ -113,14 +115,6 @@ function CharacterCard({ character }: CharacterCardProps) {
               })}
             </div>
           )}
-          {/* <div className="mt-2 grid grid-cols-3 gap-2 lg:grid-cols-6">
-            {Object.entries(equippedRelics).map(([slot, relic]) => {
-              if (!relic) {
-                return null;
-              }
-              return <CharacterRelic key={slot} relic={relic} />;
-            })}
-          </div> */}
         </div>
       </div>
     </div>
