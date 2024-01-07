@@ -8,36 +8,19 @@ export const getMainstatValue = (relic: Relic) => {
   const possibleMainstats =
     RelicValues.main[relic.rarity as keyof typeof RelicValues.main][relic.slot];
 
-  if (Object.keys(possibleMainstats).includes(relic.mainstat)) {
-    return (
-      possibleMainstats[relic.mainstat as keyof typeof possibleMainstats][
-        "base"
-      ] +
-      possibleMainstats[relic.mainstat as keyof typeof possibleMainstats][
-        "step"
-      ] *
-        relic.level
-    );
+  if (!Object.keys(possibleMainstats).includes(relic.mainstat)) {
+    throw new Error("Invalid mainstat");
   }
 
-  return -1;
-};
-
-export const getMainstatDisplayValue = (relic: Relic) => {
-  const mainstatValue = getMainstatValue(relic);
-  return hasFlatMainstat(relic)
-    ? Math.floor(mainstatValue)
-    : getPercentageString(mainstatValue);
-};
-
-export const getPercentageString = (value: number) => {
-  const thousands = Math.floor(value * 10000);
-  let percentage = Math.floor(thousands / 10) / 10;
-  if (thousands % 10 === 9) {
-    percentage = Math.ceil(thousands / 10) / 10;
-  }
-
-  return `${percentage.toFixed(1)}%`;
+  return (
+    possibleMainstats[relic.mainstat as keyof typeof possibleMainstats][
+      "base"
+    ] +
+    possibleMainstats[relic.mainstat as keyof typeof possibleMainstats][
+      "step"
+    ] *
+      relic.level
+  );
 };
 
 export const getSubstatRollValue = (substat: RelicSubstat, rarity: number) => {
@@ -62,4 +45,10 @@ export const hasFlatMainstat = (relic: Relic) => {
     relic.slot === "Hands" ||
     (relic.mainstat === "SPD" && relic.slot === "Feet")
   );
+};
+
+export const getSubstatDisplayText = (substat: RelicSubstat) => {
+  return substat.key.endsWith("_")
+    ? substat.value.toFixed(1) + "%"
+    : substat.value;
 };

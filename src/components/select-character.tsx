@@ -15,7 +15,7 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { Check, ChevronsUpDown, UserRoundMinus } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/tailwind-utils";
 import { ScrollArea } from "./ui/scroll-area";
 
 interface CharacterSelectProps {
@@ -72,7 +72,7 @@ function CharacterSelect({
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0">
+        <PopoverContent className="p-0">
           <Command>
             <CommandInput placeholder="Search characters..." />
             <CommandEmpty>No characters found.</CommandEmpty>
@@ -90,6 +90,7 @@ function CharacterSelect({
                       );
                       setOpen(false);
                     }}
+                    className="cursor-pointer"
                   >
                     <Check
                       className={cn(

@@ -1,24 +1,28 @@
 import { Relic } from "@/types/user-data/hsr-scanner-types";
 import { GameData, RelicMetadata } from "@/types/game-data-types";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import { getRarityStyle } from "@/utils/style-utils";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { getRarityTextStyle } from "@/utils/style-utils";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
 import { X } from "lucide-react";
 import RelicSubstats from "./relic-substats";
 import { Separator } from "@/components/ui/separator";
-import RelicHoverCardContent from "./relic-hover";
+import RelicDetails from "./relic-details";
+import { getMainstatDisplayValue } from "../utils/relic-format-utils";
 
 interface LightConeCardProps {
   relic: Relic;
-  metadata: RelicMetadata | null;
 }
-function RelicCard({ relic, metadata }: LightConeCardProps) {
-  const { userData, setUserData } = useContext(HsrDataContext);
-  if (!metadata) {
-    return null;
-  }
+function RelicCard({ relic }: LightConeCardProps) {
+  const { userData, setUserData, gameData } = useContext(HsrDataContext);
+  const metadata = gameData.relic_sets[
+    relic.set as keyof typeof gameData.relic_sets
+  ]["pieces"][relic.slot] as RelicMetadata;
 
   const deleteRelic = () => {
     userData.relics = userData.relics.filter((r) => r !== relic);
@@ -62,13 +66,16 @@ function RelicCard({ relic, metadata }: LightConeCardProps) {
             />
             <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-sm font-semibold ${getRarityStyle(
+                className={`text-sm font-semibold ${getRarityTextStyle(
                   relic.rarity,
                 )}`}
               >
                 {metadata.name}
               </div>
-              <div className="text-lg font-bold">{relic.mainstat}</div>
+              <div className="font-bold">
+                <div>{relic.mainstat}</div>
+                <div className="text-lg">{getMainstatDisplayValue(relic)}</div>
+              </div>
               <div className="text-xs text-muted-foreground">
                 {relic.slot} +{relic.level}
               </div>
@@ -82,7 +89,9 @@ function RelicCard({ relic, metadata }: LightConeCardProps) {
           onCharacterSelect={onCharacterSelect}
         />
       </div>
-      <RelicHoverCardContent {...{ relic, metadata }} />
+      <HoverCardContent>
+        <RelicDetails {...{ relic, metadata }} />
+      </HoverCardContent>
     </HoverCard>
   );
 }

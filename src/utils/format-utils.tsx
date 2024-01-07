@@ -1,4 +1,8 @@
-export const formatDesc = (desc: string, params: string[]) => {
+export const formatDesc = (
+  desc: string,
+  params: string[],
+  toString = false,
+) => {
   const isPercent: {
     [index: number]: boolean;
   } = {};
@@ -8,16 +12,15 @@ export const formatDesc = (desc: string, params: string[]) => {
     }
   }
 
-  let parts = desc.split(/({\d})/g);
-  let result: JSX.Element[] = [];
+  const parts = desc.split(/({\d})/g);
+  const result: JSX.Element[] = [];
   for (let i = 0; i < parts.length; i++) {
     const part = parts[i];
     if (part.match(/{\d}/g)) {
       const index = Number(part.replace(/{/g, "").replace(/}/g, ""));
       result.push(
         <span key={i} className="text-orange-400">
-          {params[index]}
-          {isPercent[index] ? "%" : ""}
+          {`${params[index]}${isPercent[index] ? "%" : ""}`}
         </span>,
       );
       if (parts[i + 1]) {
@@ -26,6 +29,10 @@ export const formatDesc = (desc: string, params: string[]) => {
     } else {
       result.push(<span key={i}>{part}</span>);
     }
+  }
+
+  if (toString) {
+    return result.map((el) => el.props.children).join("");
   }
 
   return result;

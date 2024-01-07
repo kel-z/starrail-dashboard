@@ -1,23 +1,27 @@
 import { LightCone } from "@/types/user-data/hsr-scanner-types";
 import { GameData, LightConeMetadata } from "@/types/game-data-types";
-import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
-import { getRarityStyle } from "@/utils/style-utils";
-import LightConeHoverCardContent from "./light-cone-hover";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { getRarityTextStyle } from "@/utils/style-utils";
+import LightConeDetails from "./light-cone-details";
 import CharacterSelect from "@/components/select-character";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
 import { X } from "lucide-react";
 
 interface LightConeCardProps {
-  lc: LightCone;
-  metadata: LightConeMetadata;
+  lightCone: LightCone;
 }
-function LightConeCard({ lc, metadata }: LightConeCardProps) {
-  const { userData, setUserData } = useContext(HsrDataContext);
+function LightConeCard({ lightCone }: LightConeCardProps) {
+  const { userData, setUserData, gameData } = useContext(HsrDataContext);
+  const metadata = gameData.light_cones[lightCone.key] as LightConeMetadata;
 
   const deleteLightCone = () => {
     userData.light_cones = userData.light_cones.filter(
-      (lightCone) => lightCone !== lc,
+      (lc) => lc !== lightCone,
     );
     setUserData({ ...userData });
   };
@@ -26,7 +30,7 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
     character: (keyof GameData["characters"] & string) | null,
   ) => {
     if (!character) {
-      lc.location = "";
+      lightCone.location = "";
       setUserData({ ...userData });
       return;
     }
@@ -36,16 +40,16 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
       (lc) => lc.location === character,
     );
     if (prevLightCone) {
-      prevLightCone.location = lc.location || "";
+      prevLightCone.location = lightCone.location || "";
     }
-    lc.location = character;
+    lightCone.location = character;
 
     setUserData({ ...userData });
   };
 
   return (
     <HoverCard>
-      <div className="relative flex flex-col justify-between overflow-hidden rounded border">
+      <div className="relative flex flex-col justify-between overflow-hidden">
         <X
           className="absolute right-2 top-2 h-4 w-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
           onClick={deleteLightCone}
@@ -55,31 +59,33 @@ function LightConeCard({ lc, metadata }: LightConeCardProps) {
             <img
               className="h-28 w-24 rounded"
               src={metadata.icon}
-              alt={lc.key}
+              alt={lightCone.key}
             />
             <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-sm font-semibold ${getRarityStyle(
+                className={`text-sm font-semibold ${getRarityTextStyle(
                   metadata.rarity,
                 )}`}
               >
-                {lc.key}
+                {lightCone.key}
               </div>
               <div className="text-xl font-bold">
-                Lv. {lc.level} / {20 + 10 * lc.ascension}
+                Lv. {lightCone.level} / {20 + 10 * lightCone.ascension}
               </div>
               <div className="text-xs text-muted-foreground">
-                Superimposition {lc.superimposition}
+                Superimposition {lightCone.superimposition}
               </div>
             </div>
           </div>
         </HoverCardTrigger>
         <CharacterSelect
-          selected={lc.location}
+          selected={lightCone.location}
           onCharacterSelect={onCharacterSelect}
         />
       </div>
-      <LightConeHoverCardContent {...{ lc, metadata }} />
+      <HoverCardContent>
+        <LightConeDetails {...{ lightCone, metadata }} />
+      </HoverCardContent>
     </HoverCard>
   );
 }

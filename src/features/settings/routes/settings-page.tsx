@@ -8,7 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Trash2 } from "lucide-react";
 
 function SettingsPage() {
-  const { userData, setUserData } = useContext(HsrDataContext);
+  const { userData, setUserData, setIsTrailblazerFemale } =
+    useContext(HsrDataContext);
   const [firstRender, setFirstRender] = useState(true);
   const [editMode, setEditMode] = useState(false);
   const [importError, setImportError] = useState<boolean>(false);
@@ -20,7 +21,7 @@ function SettingsPage() {
       userData.source === "NONE"
         ? "No data imported."
         : JSON.stringify(userData, null, 2);
-  }, [userData]);
+  }, [userData, textAreaRef]);
 
   useEffect(() => {
     if (firstRender) {
@@ -31,7 +32,11 @@ function SettingsPage() {
     if (!editMode) {
       if (!textAreaRef.current) return;
       setImportError(
-        !loadHsrScannerDataString(textAreaRef.current.value, setUserData),
+        !loadHsrScannerDataString(
+          textAreaRef.current.value,
+          setUserData,
+          setIsTrailblazerFemale,
+        ),
       );
     } else {
       setImportError(false);
@@ -39,6 +44,7 @@ function SettingsPage() {
         textAreaRef.current.value = "";
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode]);
 
   const importUserData = () => {
@@ -51,7 +57,13 @@ function SettingsPage() {
         const reader = new FileReader();
         reader.onload = (e) => {
           const userData = e.target?.result as string;
-          setImportError(!loadHsrScannerDataString(userData, setUserData));
+          setImportError(
+            !loadHsrScannerDataString(
+              userData,
+              setUserData,
+              setIsTrailblazerFemale,
+            ),
+          );
         };
         reader.readAsText(file);
       }
@@ -63,7 +75,7 @@ function SettingsPage() {
     const dataStr = JSON.stringify(userData);
     const dataUri =
       "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
-    const exportFileDefaultName = `HSRExport_${new Date().toISOString()}.json`;
+    const exportFileDefaultName = `SRDExport_${new Date().toISOString()}.json`;
 
     const linkElement = document.createElement("a");
     linkElement.setAttribute("href", dataUri);

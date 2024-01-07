@@ -1,23 +1,25 @@
-import { HoverCardContent } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { RelicMetadata } from "@/types/game-data-types";
 import { Relic } from "@/types/user-data/hsr-scanner-types";
-import { getRarityStyle } from "@/utils/style-utils";
-import { getMainstatDisplayValue } from "../utils/relic-utils";
+import { getRarityTextStyle } from "@/utils/style-utils";
+import { getMainstatDisplayValue } from "../utils/relic-format-utils";
 import RollValue from "./roll-value";
+import { useContext } from "react";
+import { HsrDataContext } from "@/stores/database-store";
 
-interface RelicHoverCardContentProps {
+interface RelicDetailsProps {
   relic: Relic;
-  metadata: RelicMetadata;
 }
-function RelicHoverCardContent({
-  relic,
-  metadata,
-}: RelicHoverCardContentProps) {
+function RelicDetails({ relic }: RelicDetailsProps) {
+  const { gameData } = useContext(HsrDataContext);
+  const metadata = gameData.relic_sets[
+    relic.set as keyof typeof gameData.relic_sets
+  ]["pieces"][relic.slot] as RelicMetadata;
+
   return (
-    <HoverCardContent className="text-sm">
+    <div className="text-sm">
       <div className="flex flex-wrap justify-between gap-x-2">
-        <div className={`font-semibold ${getRarityStyle(relic.rarity)}`}>
+        <div className={`font-semibold ${getRarityTextStyle(relic.rarity)}`}>
           {metadata.name}
         </div>
         <div className="text-muted-foreground">+{relic.level}</div>
@@ -39,8 +41,8 @@ function RelicHoverCardContent({
           </div>
         ))}
       </div>
-    </HoverCardContent>
+    </div>
   );
 }
 
-export default RelicHoverCardContent;
+export default RelicDetails;

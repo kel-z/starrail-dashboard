@@ -11,7 +11,7 @@ export type GameData = {
   };
 };
 
-type StatIncrement = {
+export type StatIncrement = {
   // base value of the stat
   base: number;
   // how much the stat increases per level
@@ -41,9 +41,10 @@ type LightConeAbility = {
   // select index 0 if superimposition is 1, index 1 if superimposition is 2, etc.
   // then replace {0}, {1}, etc. in desc with the values in the array
   params: string[][];
+  modifiers: CharacterModifier[][];
 };
 
-export type RelicSlots =
+export type RelicSlot =
   | "Head"
   | "Hands"
   | "Body"
@@ -53,7 +54,7 @@ export type RelicSlots =
 
 type RelicSetMetadata = {
   pieces: {
-    [key in RelicSlots]?: RelicMetadata;
+    [key in RelicSlot]?: RelicMetadata;
   };
   // select index 0 if 2 pc set bonus and index 1 if 4 pc set bonus
   desc: string[];
@@ -90,7 +91,7 @@ export type CharacterMetadata = {
   element: CharacterElement;
   // select index 0 if ascension is 0, index 1 if ascension is 1, etc.
   ascension: {
-    [key in CharacterStatKey]: StatIncrement;
+    [key in CharacterBaseStatKey]: StatIncrement;
   }[];
   // index 0 is eidolon 1, index 1 is eidolon 2, etc.
   eidolons: CharacterEidolon[];
@@ -98,12 +99,14 @@ export type CharacterMetadata = {
     [key in CharacterSkillKey]: CharacterSkillData;
   };
   traces: {
-    [key in CharacterTraceKey]: CharacterTraceData;
+    [key in AllCharacterTraceKey]: CharacterTraceData;
   };
   icon: string;
+  splash: string;
+  mini_icon: string;
 };
 
-type CharacterBaseStatKey =
+export type CharacterBaseStatKey =
   | "hp"
   | "atk"
   | "def"
@@ -112,7 +115,7 @@ type CharacterBaseStatKey =
   | "crit_rate"
   | "crit_dmg";
 
-type CharacterStatKey =
+export type CharacterStatKey =
   | CharacterBaseStatKey
   | "fire"
   | "ice"
@@ -127,9 +130,17 @@ type CharacterStatKey =
   | "effect_hit"
   | "effect_res";
 
-type ModifierTypeKey = CharacterStatKey | "hp_" | "atk_" | "def_" | "spd_";
+export type ModifierKey = CharacterStatKey | "hp_" | "atk_" | "def_" | "spd_";
 
-type CharacterPath =
+export type AllCharacterBaseStats = {
+  [key in CharacterBaseStatKey]: number;
+};
+
+export type AllCharacterStats = {
+  [key in CharacterStatKey]: number;
+};
+
+export type CharacterPath =
   | "The Hunt"
   | "Erudition"
   | "Nihility"
@@ -149,7 +160,7 @@ type CharacterElement =
 
 export type CharacterSkillKey = "basic" | "skill" | "ult" | "talent";
 
-type CharacterSkillData = {
+export type CharacterSkillData = {
   name: string;
   max_level: number;
   desc: string;
@@ -157,12 +168,11 @@ type CharacterSkillData = {
   icon: string;
 };
 
-export type CharacterTraceKey =
+export type AllCharacterTraceKey =
   | "technique"
   | "ability_1"
   | "ability_2"
   | "ability_3"
-  | "stat_0"
   | "stat_1"
   | "stat_2"
   | "stat_3"
@@ -174,15 +184,15 @@ export type CharacterTraceKey =
   | "stat_9"
   | "stat_10";
 
-type CharacterTraceData = {
+export type CharacterTraceData = {
   name: string;
   desc: string;
   modifiers?: CharacterModifier[];
   icon: string;
 };
 
-type CharacterModifier = {
-  type: ModifierTypeKey;
+export type CharacterModifier = {
+  type: ModifierKey;
   value: number;
 };
 
@@ -191,10 +201,7 @@ type CharacterEidolon = {
   desc: string;
   // for eidolons 3 and 5
   level_up_skills?: {
-    basic?: number;
-    skill?: number;
-    ult?: number;
-    talent?: number;
+    [key in CharacterSkillKey]?: number;
   };
   icon: string;
 };
