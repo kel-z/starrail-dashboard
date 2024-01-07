@@ -32,8 +32,13 @@ function RelicDetails({ relic }: RelicDetailsProps) {
       <div className="font-semibold">Substat distribution</div>
       <Separator />
       <div className="grid grid-cols-1 p-2 text-sm font-medium">
-        {relic.substats.map((substat) => (
-          <div key={substat.key} className="flex flex-row justify-between">
+        {relic.substats.map((substat, index) => (
+          <div
+            key={substat.key}
+            className={`flex flex-row justify-between ${
+              index % 2 === 0 ? "bg-muted/25" : ""
+            }`}
+          >
             <div>{substat.key.replace("_", "%")}</div>
             <div>
               <RollValue relic={relic} substat={substat} />
