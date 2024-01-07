@@ -87,7 +87,7 @@ function CharacterCard({ character }: CharacterCardProps) {
           />
         </div>
         <div className="z-10 flex h-full flex-1 flex-col gap-1 bg-background/75 p-3 backdrop-blur-lg">
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <div className="flex flex-col">
               <div className="text-2xl">{displayName}</div>
               <div className="flex flex-wrap gap-1 text-lg">

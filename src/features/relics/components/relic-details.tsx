@@ -25,7 +25,7 @@ function RelicDetails({ relic }: RelicDetailsProps) {
         <div className="text-muted-foreground">+{relic.level}</div>
       </div>
       <Separator />
-      <div className="flex flex-row justify-between p-2 font-bold">
+      <div className="m-2 flex flex-row justify-between bg-muted/25 font-bold">
         <div>{relic.mainstat}</div>
         <div>{getMainstatDisplayValue(relic)}</div>
       </div>
