@@ -65,22 +65,23 @@ const sroToHsrScannerSlotMap: Record<SroRelicSlotKey, RelicSlot> = {
   rope: "Link Rope",
 };
 
-const formatLocation = (location: string): string => {
-  if (location === "TrailblazerFireM" || location === "TrailblazerFireF") {
-    return "TrailblazerFire";
+const formatLocation = (
+  location: string,
+  setIsTrailblazerFemale?: (isTrailblazerFemale: boolean) => void,
+): string => {
+  if (!location.startsWith("Trailblazer")) return location;
+
+  if (setIsTrailblazerFemale) {
+    setIsTrailblazerFemale(location.endsWith("F"));
   }
 
-  if (
-    location === "TrailblazerPhysicalM" ||
-    location === "TrailblazerPhysicalF"
-  ) {
-    return "TrailblazerPhysical";
-  }
-
-  return location;
+  return location.slice(0, -1);
 };
 
-export const convertSroToHsrScannerData = (sroData: SroData): UserData => {
+export const convertSroToHsrScannerData = (
+  sroData: SroData,
+  setIsTrailblazerFemale: (isTrailblazerFemale: boolean) => void,
+): UserData => {
   const result: UserData = {
     source: sroData.source,
     version: 3,
@@ -156,7 +157,9 @@ export const convertSroToHsrScannerData = (sroData: SroData): UserData => {
   if (sroData.characters) {
     for (const c of sroData.characters) {
       const res: Character = {
-        key: sroToHsrScannerData.characters[formatLocation(c.key)],
+        key: sroToHsrScannerData.characters[
+          formatLocation(c.key, setIsTrailblazerFemale)
+        ],
         level: c.level,
         ascension: c.ascension,
         eidolon: c.eidolon,

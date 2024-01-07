@@ -160,7 +160,7 @@ type CharacterElement =
 
 export type CharacterSkillKey = "basic" | "skill" | "ult" | "talent";
 
-type CharacterSkillData = {
+export type CharacterSkillData = {
   name: string;
   max_level: number;
   desc: string;

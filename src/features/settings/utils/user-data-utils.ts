@@ -5,6 +5,7 @@ import { convertSroToHsrScannerData } from "./sro-conversion-utils";
 export const loadHsrScannerDataString = (
   userDataString: string,
   setUserData: (userData: UserData) => void,
+  setIsTrailblazerFemale: (isTrailblazerFemale: boolean) => void
 ): boolean => {
   let userDataJSON: UserData | SroData;
   try {
@@ -17,7 +18,7 @@ export const loadHsrScannerDataString = (
     "format" in userDataJSON &&
     (userDataJSON.format === "SRO" || userDataJSON.format === "SROD")
   ) {
-    const convertedUserData = convertSroToHsrScannerData(userDataJSON);
+    const convertedUserData = convertSroToHsrScannerData(userDataJSON, setIsTrailblazerFemale);
     setUserData(convertedUserData);
     return true;
   }
