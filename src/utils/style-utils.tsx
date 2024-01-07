@@ -3,7 +3,7 @@ export const getRarityTextStyle = (rarity: number) => {
     case 1:
       return "text-gray-400";
     case 2:
-      return "text-green-400";
+      return "text-teal-300";
     case 3:
       return "text-blue-400";
     case 4:
