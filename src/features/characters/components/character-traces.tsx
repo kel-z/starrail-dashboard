@@ -12,7 +12,9 @@ import {
 import {
   AllCharacterTraceKey,
   CharacterMetadata,
+  CharacterSkillData,
   CharacterSkillKey,
+  CharacterTraceData,
 } from "@/types/game-data-types";
 import abundanceBg from "../assets/images/trace-abundance.png";
 import destructionBg from "../assets/images/trace-destruction.png";
@@ -22,6 +24,7 @@ import huntBg from "../assets/images/trace-hunt.png";
 import nihilityBg from "../assets/images/trace-nihility.png";
 import preservationBg from "../assets/images/trace-preservation.png";
 import abilityOverlay from "../assets/images/ability-overlay.png";
+import { formatDesc } from "@/utils/format-utils";
 
 interface CharacterTracesProps {
   character: Character;
@@ -97,7 +100,13 @@ export default function CharacterTraces({
       stat: "w-[5.5%]",
     };
 
-    let traceFn: Function;
+    let traceFn: (
+      traceKey: string,
+      skillClass: string,
+      traceClass: string,
+      activatedClass: string,
+      iconWidths: { skill: string; ability: string; stat: string },
+    ) => string;
     switch (metadata.path) {
       case "Harmony":
         traceFn = getHarmonyTraceClasses;
@@ -157,8 +166,11 @@ export default function CharacterTraces({
     <div className="relative my-auto h-fit w-fit">
       <div className="absolute h-full w-full">
         {["skills", "traces"].map((traceType) => {
-          return Object.entries((metadata as any)[traceType]).map(
-            ([traceKey, trace]: [any, any]) => {
+          return Object.entries(metadata[traceType as "skills" | "traces"]).map(
+            ([traceKey, trace]: [
+              string,
+              CharacterTraceData | CharacterSkillData,
+            ]) => {
               let imgClass = "";
               if (
                 traceKey in character.traces &&
@@ -166,11 +178,21 @@ export default function CharacterTraces({
               ) {
                 imgClass = "opacity-50 grayscale";
               }
+              const desc =
+                traceType === "skills"
+                  ? formatDesc(
+                      trace.desc,
+                      (trace as CharacterSkillData).params[
+                        character.skills[traceKey as CharacterSkillKey] - 1
+                      ],
+                      true,
+                    )
+                  : trace.desc;
               return (
                 <div
                   key={traceKey}
                   className={`${getTraceClasses(
-                    traceKey,
+                    traceKey as AllCharacterTraceKey,
                   )} absolute -translate-x-1/2 -translate-y-1/2 transform rounded-full`}
                 >
                   {traceKey.startsWith("ability") && (
@@ -183,8 +205,10 @@ export default function CharacterTraces({
                   <img
                     src={trace.icon}
                     alt={`${character.key} ${traceKey} icon`}
-                    className={`${getImageClassName(traceKey)}`}
-                    title={`${trace.name} (${traceKey})\n${trace.desc}`}
+                    className={getImageClassName(
+                      traceKey as AllCharacterTraceKey,
+                    )}
+                    title={`${trace.name} (${traceKey})\n${desc}`}
                   />
                   {["basic", "skill", "ult", "talent"].includes(traceKey) && (
                     <div className="absolute h-[50%] w-[300%] -translate-x-1/3 transform text-center font-din-alternate font-bold">

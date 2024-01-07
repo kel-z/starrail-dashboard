@@ -13,6 +13,7 @@ import {
   CharacterModifier,
   CharacterPath,
   CharacterStatKey,
+  GameData,
   ModifierKey,
 } from "@/types/game-data-types";
 import {
@@ -21,6 +22,7 @@ import {
   Relic,
   RelicMainstatKey,
   RelicSubstatKey,
+  UserData,
 } from "@/types/user-data/hsr-scanner-types";
 import { useContext } from "react";
 
@@ -92,6 +94,7 @@ const getCharacterBaseStats = (
   character: Character,
   metadata: CharacterMetadata,
   equippedLightCone: LightCone | null,
+  gameData: GameData,
 ): AllCharacterBaseStats => {
   const res = {
     hp: 0,
@@ -110,8 +113,7 @@ const getCharacterBaseStats = (
   );
 
   if (equippedLightCone) {
-    const lightConeMetadata =
-      useContext(HsrDataContext).gameData.light_cones[equippedLightCone.key];
+    const lightConeMetadata = gameData.light_cones[equippedLightCone.key];
     const { hp, atk, def } = getLightConeStats(
       lightConeMetadata,
       equippedLightCone.level,
@@ -218,11 +220,11 @@ export const getTraceModifiers = (
 export const getLightConeModifiers = (
   lightCone: LightCone | null,
   characterPath: CharacterPath,
+  gameData: GameData,
 ) => {
   if (!lightCone) return [];
+  const lightConeMetadata = gameData.light_cones[lightCone.key];
 
-  const lightConeMetadata =
-    useContext(HsrDataContext).gameData.light_cones[lightCone.key];
   if (
     lightConeMetadata.path === characterPath &&
     lightConeMetadata.ability.modifiers
@@ -233,8 +235,7 @@ export const getLightConeModifiers = (
   return [];
 };
 
-export const getRelicSetModifiers = (equippedRelics: Relic[]) => {
-  const res: CharacterModifier[] = [];
+export const getRelicSetCount = (equippedRelics: Relic[]) => {
   const relicSetCount: Record<string, number> = {};
   equippedRelics.forEach((relic) => {
     if (!relicSetCount[relic.set]) {
@@ -242,13 +243,42 @@ export const getRelicSetModifiers = (equippedRelics: Relic[]) => {
     }
     relicSetCount[relic.set] += 1;
   });
+  return relicSetCount;
+};
 
-  Object.entries(relicSetCount).forEach(([set, count]) => {
+export const getRelicSetModifiers = (equippedRelics: Relic[]) => {
+  const res: CharacterModifier[] = [];
+  const relicSetCount = getRelicSetCount(equippedRelics);
+
+  Object.entries(relicSetCount).forEach(([setKey, count]) => {
     let setBonusIndex = Math.max(-1, Math.floor(count / 2) - 1);
-    const setMetadata = useContext(HsrDataContext).gameData.relic_sets[set];
+    const setMetadata = useContext(HsrDataContext).gameData.relic_sets[setKey];
     while (setMetadata.modifiers && setBonusIndex >= 0) {
       res.push(...setMetadata.modifiers[setBonusIndex]);
       setBonusIndex -= 1;
+    }
+  });
+
+  return res;
+};
+
+export const getRelicSetDescriptions = (
+  equippedRelics: Relic[],
+): Record<string, string[]> => {
+  const res: Record<string, string[]> = {};
+  const relicSetCount = getRelicSetCount(equippedRelics);
+
+  Object.entries(relicSetCount).forEach(([setKey, count]) => {
+    const numSetBonuses = Math.max(-1, Math.floor(count / 2) - 1);
+    const setMetadata = useContext(HsrDataContext).gameData.relic_sets[setKey];
+
+    let i = 0;
+    while (setMetadata.desc && i <= numSetBonuses) {
+      if (!res[setKey]) {
+        res[setKey] = [];
+      }
+      res[setKey].push(setMetadata.desc[i]);
+      i += 1;
     }
   });
 
@@ -301,8 +331,9 @@ export const addModifiersToCharacterStats = (
 export const getAllCharacterStats = (
   character: Character,
   metadata: CharacterMetadata,
+  userData: UserData,
+  gameData: GameData,
 ): AllCharacterStats => {
-  const { userData } = useContext(HsrDataContext);
   const equippedLightCone =
     userData.light_cones.find(
       (lightCone) => lightCone.location === character.key,
@@ -332,6 +363,7 @@ export const getAllCharacterStats = (
     character,
     metadata,
     equippedLightCone,
+    gameData,
   );
   Object.entries(characterBaseStats).forEach(([stat, value]) => {
     res[stat as CharacterBaseStatKey] += value;
@@ -344,7 +376,9 @@ export const getAllCharacterStats = (
 
   const modifiers: CharacterModifier[] = [];
   modifiers.push(...getTraceModifiers(character, metadata));
-  modifiers.push(...getLightConeModifiers(equippedLightCone, metadata.path));
+  modifiers.push(
+    ...getLightConeModifiers(equippedLightCone, metadata.path, gameData),
+  );
   modifiers.push(...getRelicSetModifiers(equippedRelics));
   addModifiersToCharacterStats(modifiers, characterBaseStats, res);
 

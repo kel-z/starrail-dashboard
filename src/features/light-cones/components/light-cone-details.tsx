@@ -39,8 +39,13 @@ function LightConeDetails({ lightCone }: LightConeDetailsProps) {
       </div>
       <Separator />
       <div className="grid grid-cols-1 grid-rows-3 p-2">
-        {Object.entries(stats).map(([key, value]) => (
-          <div key={key} className="flex flex-row justify-between">
+        {Object.entries(stats).map(([key, value], index) => (
+          <div
+            key={key}
+            className={`flex flex-row justify-between ${
+              index % 2 === 0 ? "bg-muted/25" : ""
+            }`}
+          >
             <div className="flex items-center gap-1">
               <img src={iconMap[key]} alt={key} className="h-5 w-5" />
               {key.toUpperCase()}
