@@ -41,7 +41,7 @@ function CharacterStats({ character, metadata }: CharacterStatsProps) {
                 index % 2 === 0 ? "bg-muted/25" : ""
               }`}
             >
-              <div className="flex flex-row items-center gap-1">
+              <div className="flex flex-row items-center gap-0.5">
                 {getStatsDisplayIconMap(key as CharacterStatKey)}
                 <div>{statsDisplayTextMap[key as CharacterStatKey]}</div>
               </div>

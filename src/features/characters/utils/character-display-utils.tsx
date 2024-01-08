@@ -65,9 +65,9 @@ export const statsDisplayIconMap = (statKey: CharacterStatKey) => {
 
   switch (statKey) {
     case "taunt":
-      return <Target strokeWidth={2} className="h-5 w-5 scale-[80%]" />;
+      return <Target strokeWidth={2} className="h-6 w-6 scale-[80%]" />;
     default:
-      return <img src={iconMap[statKey]} className="h-5 w-5" />;
+      return <img src={iconMap[statKey]} className="h-6 w-6" />;
   }
 };
 
