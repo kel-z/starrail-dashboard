@@ -66,7 +66,7 @@ function CharacterCard({ character }: CharacterCardProps) {
   });
 
   return (
-    <div className="relative flex flex-col justify-between overflow-hidden rounded border font-din-alternate font-bold">
+    <div className="relative flex flex-col justify-between overflow-hidden rounded border">
       <X
         className="absolute right-2 top-2 z-50 h-4 w-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
         onClick={deleteCharacter}

@@ -28,7 +28,7 @@ function LightConeDetails({ lightCone }: LightConeDetailsProps) {
   };
 
   return (
-    <div className="text-sm">
+    <div>
       <div className="flex flex-wrap justify-between gap-x-2">
         <div className={`font-semibold ${getRarityTextStyle(metadata.rarity)}`}>
           {lightCone.key}
@@ -46,7 +46,7 @@ function LightConeDetails({ lightCone }: LightConeDetailsProps) {
               index % 2 === 0 ? "bg-muted/25" : ""
             }`}
           >
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-0.5">
               <img src={iconMap[key]} alt={key} className="h-5 w-5" />
               {key.toUpperCase()}
             </div>
@@ -61,7 +61,7 @@ function LightConeDetails({ lightCone }: LightConeDetailsProps) {
         </div>
       </div>
       <Separator />
-      <div className="p-2 text-xs">
+      <div className="p-2">
         {formatDesc(
           metadata.ability.desc,
           metadata.ability.params[lightCone.superimposition - 1],

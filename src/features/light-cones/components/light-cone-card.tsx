@@ -63,7 +63,7 @@ function LightConeCard({ lightCone }: LightConeCardProps) {
             />
             <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-sm font-semibold ${getRarityTextStyle(
+                className={`font-semibold ${getRarityTextStyle(
                   metadata.rarity,
                 )}`}
               >

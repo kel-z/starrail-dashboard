@@ -5,8 +5,8 @@ import spdIcon from "@/assets/images/spd.png";
 import critDmgIcon from "@/assets/images/crit-dmg.png";
 import critRateIcon from "@/assets/images/crit-rate.png";
 import breakIcon from "@/assets/images/break.png";
-import EffectHitIcon from "@/assets/images/effect-hit.png";
-import EffectResIcon from "@/assets/images/effect-res.png";
+import effectHitIcon from "@/assets/images/effect-hit.png";
+import effectResIcon from "@/assets/images/effect-res.png";
 import {
   RelicSubstat,
   RelicSubstatKey,
@@ -16,7 +16,7 @@ interface SubstatIconProps {
   substat: RelicSubstat;
 }
 export default function SubstatIcon({ substat }: SubstatIconProps) {
-  const iconMap: Partial<Record<RelicSubstatKey, string>> = {
+  const iconMap: Record<RelicSubstatKey, string> = {
     HP: hpIcon,
     HP_: hpIcon,
     ATK: atkIcon,
@@ -26,16 +26,12 @@ export default function SubstatIcon({ substat }: SubstatIconProps) {
     SPD: spdIcon,
     "CRIT Rate_": critRateIcon,
     "CRIT DMG_": critDmgIcon,
-    "Effect Hit Rate_": EffectHitIcon,
-    "Effect RES_": EffectResIcon,
+    "Effect Hit Rate_": effectHitIcon,
+    "Effect RES_": effectResIcon,
     "Break Effect_": breakIcon,
   };
 
   return (
-    <img
-      src={iconMap[substat.key]}
-      alt={substat.key}
-      className="mr-1 h-5 w-5"
-    />
+    <img src={iconMap[substat.key]} alt={substat.key} className="h-6 w-6" />
   );
 }

@@ -44,7 +44,7 @@ function Header() {
                 <NavLink
                   to={value?.path}
                   className={({ isActive }) =>
-                    `inline-flex h-10 w-max items-center justify-center rounded-md px-3 py-2 text-sm transition-colors duration-300 hover:text-foreground disabled:pointer-events-none disabled:opacity-50 ${
+                    `inline-flex h-10 w-max items-center justify-center rounded-md px-3 py-2 transition-colors duration-300 hover:text-foreground disabled:pointer-events-none disabled:opacity-50 ${
                       isActive ? "text-foreground" : "text-muted-foreground"
                     }`
                   }

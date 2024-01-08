@@ -6,6 +6,8 @@ import { getMainstatDisplayValue } from "../utils/relic-format-utils";
 import RollValue from "./roll-value";
 import { useContext } from "react";
 import { HsrDataContext } from "@/stores/database-store";
+import MainstatIcon from "./mainstat-icon";
+import { SubstatIcon } from "..";
 
 interface RelicDetailsProps {
   relic: Relic;
@@ -17,7 +19,7 @@ function RelicDetails({ relic }: RelicDetailsProps) {
   ]["pieces"][relic.slot] as RelicMetadata;
 
   return (
-    <div className="text-sm">
+    <div>
       <div className="flex flex-wrap justify-between gap-x-2">
         <div className={`font-semibold ${getRarityTextStyle(relic.rarity)}`}>
           {metadata.name}
@@ -25,24 +27,28 @@ function RelicDetails({ relic }: RelicDetailsProps) {
         <div className="text-muted-foreground">+{relic.level}</div>
       </div>
       <Separator />
-      <div className="m-2 flex flex-row justify-between bg-muted/25 font-bold">
-        <div>{relic.mainstat}</div>
+      <div className="m-2 flex flex-row justify-between bg-muted/25">
+        <div className="flex items-center gap-0.5">
+          <MainstatIcon mainstat={relic.mainstat} />
+          {relic.mainstat}
+        </div>
         <div>{getMainstatDisplayValue(relic)}</div>
       </div>
       <div className="font-semibold">Substat distribution</div>
       <Separator />
-      <div className="grid grid-cols-1 p-2 text-sm font-medium">
+      <div className="grid grid-cols-1 p-2">
         {relic.substats.map((substat, index) => (
           <div
             key={substat.key}
-            className={`flex flex-row justify-between ${
+            className={`flex flex-row items-center justify-between ${
               index % 2 === 0 ? "bg-muted/25" : ""
             }`}
           >
-            <div>{substat.key.replace("_", "%")}</div>
-            <div>
-              <RollValue relic={relic} substat={substat} />
+            <div className="flex items-center gap-0.5">
+              <SubstatIcon substat={substat} />
+              {substat.key.replace("_", "%")}
             </div>
+            <RollValue relic={relic} substat={substat} />
           </div>
         ))}
       </div>

@@ -18,18 +18,18 @@ function CharacterRelic({ relic }: CharacterRelicProps) {
   return (
     <div className="flex flex-col gap-1 rounded border bg-background/50 p-3">
       <div
-        className={`flex items-center justify-between gap-x-2 text-sm ${getRarityTextStyle(
+        className={`flex items-center justify-between gap-x-2 ${getRarityTextStyle(
           relic.rarity,
         )}`}
       >
-        <div>{relic.slot}</div>
+        <div className="font-semibold">{relic.slot}</div>
         <div className="text-muted-foreground">+{relic.level}</div>
       </div>
       <Separator />
       <div className="my-1 flex items-center justify-center gap-2 rounded py-1">
         <img src={metadata?.icon} alt={metadata?.name} className="w-14" />
-        <div className="text-sm">
-          <div>{relic.mainstat}</div>
+        <div className="font-semibold">
+          <div className="flex items-center">{relic.mainstat}</div>
           <div>{getMainstatDisplayValue(relic)}</div>
         </div>
       </div>
@@ -37,11 +37,11 @@ function CharacterRelic({ relic }: CharacterRelicProps) {
         return (
           <div
             key={substat.key}
-            className={`flex flex-row items-center justify-between text-sm ${
+            className={`flex flex-row items-center justify-between ${
               index % 2 === 0 ? "bg-muted/25" : ""
             }`}
           >
-            <div className="flex">
+            <div className="flex items-center gap-0.5">
               <SubstatIcon substat={substat} />
               {substat.key.replace("_", "")}
             </div>

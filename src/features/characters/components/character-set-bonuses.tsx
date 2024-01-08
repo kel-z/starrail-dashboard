@@ -14,10 +14,10 @@ function CharacterSetBonuses({ relics }: CharacterSetBonusesProps) {
       className="flex flex-col rounded border bg-background/50 p-3"
       key={setName}
     >
-      <p className="text-orange-400">{setName}</p>
+      <p className="font-semibold text-orange-400">{setName}</p>
       {setBonus.map((bonus, index) => (
-        <div className="flex gap-1 text-sm text-green-300" key={index}>
-          <CheckCircle className="mt-1 h-3 w-3 flex-shrink-0" />{" "}
+        <div className="flex gap-1 text-green-300" key={index}>
+          <CheckCircle className="mt-2 h-3 w-3 flex-shrink-0" />{" "}
           <p className="text-green-300">
             {(index + 1) * 2}-Pc: {bonus}
           </p>

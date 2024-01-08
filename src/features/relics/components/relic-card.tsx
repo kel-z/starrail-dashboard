@@ -66,9 +66,7 @@ function RelicCard({ relic }: LightConeCardProps) {
             />
             <div className="flex flex-1 flex-col p-2">
               <div
-                className={`text-sm font-semibold ${getRarityTextStyle(
-                  relic.rarity,
-                )}`}
+                className={`font-semibold ${getRarityTextStyle(relic.rarity)}`}
               >
                 {metadata.name}
               </div>
