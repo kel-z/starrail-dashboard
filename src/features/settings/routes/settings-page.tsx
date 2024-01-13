@@ -21,15 +21,24 @@ function SettingsPage() {
       userData.source === "NONE"
         ? "No data imported."
         : JSON.stringify(userData, null, 2);
-  }, [userData, textAreaRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
 
   useEffect(() => {
+    if (!textAreaRef.current) return;
+    if (userData.source === "NONE") {
+      return;
+    }
     if (firstRender) {
       setFirstRender(false);
       return;
     }
-    if (!textAreaRef.current) return;
-    if (!editMode) {
+    if (editMode) {
+      setImportError(false);
+      if (userData.source === "NONE") {
+        textAreaRef.current.value = "";
+      }
+    } else {
       if (!textAreaRef.current) return;
       setImportError(
         !loadHsrScannerDataString(
@@ -38,11 +47,6 @@ function SettingsPage() {
           setIsTrailblazerFemale,
         ),
       );
-    } else {
-      setImportError(false);
-      if (userData.source === "NONE") {
-        textAreaRef.current.value = "";
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode]);
