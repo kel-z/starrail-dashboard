@@ -24,7 +24,7 @@ export type LightCone = {
 export type Relic = {
   set: string;
   slot: RelicSlot;
-  rarity: number;
+  rarity: RelicRarityKey;
   level: number;
   mainstat: RelicMainstatKey;
   substats: RelicSubstat[];
@@ -84,3 +84,5 @@ export type RelicSubstat = {
   key: RelicSubstatKey;
   value: number;
 };
+
+export type RelicRarityKey = 2 | 3 | 4 | 5;

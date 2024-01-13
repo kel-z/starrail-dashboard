@@ -47,10 +47,10 @@ function RollValue({ relic, substat }: RollValueProps) {
             is one of
             <div className="flex flex-col rounded border p-2 font-semibold">
               {value.map((v) => (
-                <div key={v} className="flex justify-between">
-                  <div>
-                    {getSubstatValue(substat, relic.rarity, v).toFixed(2)}
-                  </div>
+                <div key={v} className="flex items-center justify-between">
+                  {getSubstatValue(substat, relic.rarity, v).map((v) => (
+                    <div key={v}>{v.toFixed(1)}</div>
+                  ))}
                   <div>{v * 100}%</div>
                 </div>
               ))}

@@ -131,6 +131,7 @@ const addRelicStatsToCharacterStats = (
   equippedRelics: Relic[],
   characterBaseStats: AllCharacterBaseStats,
   res: AllCharacterStats,
+  includeSubstats: boolean,
 ) => {
   equippedRelics.forEach((relic) => {
     const mainstatValue = getMainstatValue(relic);
@@ -167,12 +168,21 @@ const addRelicStatsToCharacterStats = (
       }
     }
 
+    if (!includeSubstats) return;
     relic.substats.forEach((substat) => {
-      let rollValue = getSubstatRollValue(substat, relic.rarity);
+      const rollValue = getSubstatRollValue(substat, relic.rarity);
+      let value;
       if (Array.isArray(rollValue)) {
-        rollValue = rollValue.reduce((a, b) => a + b, 0) / rollValue.length;
+        const lower = getSubstatValue(substat, relic.rarity, rollValue[0])[0];
+        const upper = getSubstatValue(
+          substat,
+          relic.rarity,
+          rollValue[rollValue.length - 1],
+        ).slice(-1)[0];
+        value = (lower + upper) / 2;
+      } else {
+        value = getSubstatValue(substat, relic.rarity, rollValue)[0];
       }
-      const value = getSubstatValue(substat, relic.rarity, rollValue);
       switch (substat.key) {
         case "HP":
         case "ATK":
@@ -333,6 +343,7 @@ export const getAllCharacterStats = (
   metadata: CharacterMetadata,
   userData: UserData,
   gameData: GameData,
+  includeSubstats = true,
 ): AllCharacterStats => {
   const equippedLightCone =
     userData.light_cones.find(
@@ -372,7 +383,12 @@ export const getAllCharacterStats = (
   const equippedRelics = userData.relics.filter(
     (relic) => relic.location === character.key,
   );
-  addRelicStatsToCharacterStats(equippedRelics, characterBaseStats, res);
+  addRelicStatsToCharacterStats(
+    equippedRelics,
+    characterBaseStats,
+    res,
+    includeSubstats,
+  );
 
   const modifiers: CharacterModifier[] = [];
   modifiers.push(...getTraceModifiers(character, metadata));
@@ -383,4 +399,30 @@ export const getAllCharacterStats = (
   addModifiersToCharacterStats(modifiers, characterBaseStats, res);
 
   return res;
+};
+
+export const getRelicSpdSubsRange = (equippedRelics: Relic[]) => {
+  let min = 0;
+  let max = 0;
+
+  equippedRelics.forEach((relic) => {
+    relic.substats.forEach((substat) => {
+      if (substat.key === "SPD") {
+        const rollValue = getSubstatRollValue(substat, relic.rarity);
+        if (Array.isArray(rollValue)) {
+          min += getSubstatValue(substat, relic.rarity, rollValue[0])[0];
+          max += getSubstatValue(
+            substat,
+            relic.rarity,
+            rollValue[rollValue.length - 1],
+          ).slice(-1)[0];
+        } else {
+          min += getSubstatValue(substat, relic.rarity, rollValue)[0];
+          max += getSubstatValue(substat, relic.rarity, rollValue).slice(-1)[0];
+        }
+      }
+    });
+  });
+
+  return { min, max };
 };

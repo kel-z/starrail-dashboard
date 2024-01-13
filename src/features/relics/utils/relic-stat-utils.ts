@@ -1,4 +1,8 @@
-import { Relic, RelicSubstat } from "@/types/user-data/hsr-scanner-types";
+import {
+  Relic,
+  RelicRarityKey,
+  RelicSubstat,
+} from "@/types/user-data/hsr-scanner-types";
 import {
   RelicSubstatRollValues,
   RelicValues,
@@ -23,20 +27,50 @@ export const getMainstatValue = (relic: Relic) => {
   );
 };
 
-export const getSubstatRollValue = (substat: RelicSubstat, rarity: number) => {
-  return RelicSubstatRollValues[rarity as keyof typeof RelicSubstatRollValues][
-    substat.key
-  ][substat.value];
+export const getSubstatRollValue = (
+  substat: RelicSubstat,
+  rarity: RelicRarityKey,
+) => {
+  return RelicSubstatRollValues[rarity][substat.key][substat.value];
 };
 
 export const getSubstatValue = (
   substat: RelicSubstat,
-  rarity: number,
+  rarity: RelicRarityKey,
   rollValue: number,
 ) => {
-  const step =
-    RelicValues.sub[rarity as keyof typeof RelicValues.sub][substat.key];
-  return step * rollValue;
+  const step = RelicValues.sub[rarity][substat.key];
+  if (substat.key !== "SPD") return [(step as number) * rollValue];
+
+  const threshold = substat.value;
+  type spdDict = {
+    low: number;
+    mid: number;
+    high: number;
+  };
+  const spdVals = [
+    [0.8, (step as spdDict)["low"]],
+    [0.9, (step as spdDict)["mid"]],
+    [1, (step as spdDict)["high"]],
+  ];
+
+  const result = new Set<number>();
+  const backtrack = (remaining: number, current: number[]) => {
+    const value = Math.round(current.reduce((a, b) => a + b, 0) * 10) / 10;
+    if (Math.round(remaining * 10) / 10 === 0 && value >= threshold) {
+      result.add(value);
+      return;
+    }
+    if (remaining < 0) {
+      return;
+    }
+    for (const [rv, val] of spdVals) {
+      backtrack(remaining - rv, [...current, val]);
+    }
+  };
+  backtrack(rollValue, []);
+
+  return [...result].sort();
 };
 
 export const hasFlatMainstat = (relic: Relic) => {
