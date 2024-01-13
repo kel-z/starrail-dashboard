@@ -1,3 +1,5 @@
+import { RelicRarityKey } from "./hsr-scanner-types";
+
 export type SroData = {
   format: string;
   source: string;
@@ -11,7 +13,7 @@ export interface IRelic {
   setKey: string;
   slotKey: SroRelicSlotKey;
   level: number;
-  rarity: number;
+  rarity: RelicRarityKey;
   mainStatKey: SroRelicMainKey;
   location: string;
   lock: boolean;
