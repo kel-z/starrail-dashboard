@@ -35,6 +35,10 @@ export const loadHsrScannerDataString = (
     return false;
   }
 
+  if (userDataJSON.metadata) {
+    setIsTrailblazerFemale(userDataJSON.metadata.trailblazer === "Stelle");
+  }
+
   setUserData(userDataJSON);
   return true;
 };

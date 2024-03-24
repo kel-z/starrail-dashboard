@@ -7,6 +7,10 @@ import {
 export type UserData = {
   source: string;
   version: number;
+  metadata?: {
+    uid: number;
+    trailblazer: "Stelle" | "Caelus";
+  };
   light_cones: LightCone[];
   relics: Relic[];
   characters: Character[];
