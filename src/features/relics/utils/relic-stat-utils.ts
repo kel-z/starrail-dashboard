@@ -31,7 +31,12 @@ export const getSubstatRollValue = (
   substat: RelicSubstat,
   rarity: RelicRarityKey,
 ) => {
-  return RelicSubstatRollValues[rarity][substat.key][substat.value];
+  let value = substat.value;
+  if (substat.key === "SPD") {
+    // SPD decimals not supported yet
+    value = Math.floor(value);
+  }
+  return RelicSubstatRollValues[rarity][substat.key][value];
 };
 
 export const getSubstatValue = (
