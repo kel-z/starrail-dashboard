@@ -42,7 +42,7 @@ export const getSubstatValue = (
   const step = RelicValues.sub[rarity][substat.key];
   if (substat.key !== "SPD") return [(step as number) * rollValue];
 
-  const threshold = substat.value;
+  const threshold = Math.floor(substat.value);
   type spdDict = {
     low: number;
     mid: number;
