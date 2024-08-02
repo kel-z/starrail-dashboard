@@ -25,7 +25,9 @@ function CharacterCard({ character }: CharacterCardProps) {
   const componentRef = useRef<HTMLDivElement>(null);
   const displayName = character.key.startsWith("Trailblazer")
     ? "Trailblazer"
-    : character.key;
+    : character.key.startsWith("March 7th")
+      ? "March 7th"
+      : character.key;
 
   const deleteCharacter = () => {
     userData.characters = userData.characters.filter((c) => c !== character);

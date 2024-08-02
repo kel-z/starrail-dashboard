@@ -44,7 +44,7 @@ export const HsrDataProvider = ({ children }: HsrDataProviderProps) => {
 
   useEffect(() => {
     const url =
-      "https://raw.githubusercontent.com/kel-z/HSR-Data/main/output/game_data_verbose_with_icons.json";
+      "https://raw.githubusercontent.com/kel-z/HSR-Data/v4/output/game_data_verbose_with_icons.json";
 
     fetch(url)
       .then((response) => response.json())

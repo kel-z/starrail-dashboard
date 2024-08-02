@@ -30,15 +30,16 @@ export const loadHsrScannerDataString = (
     !userDataJSON.source ||
     !["HSR-Scanner", "SRD"].includes(userDataJSON.source) ||
     !userDataJSON.version ||
-    userDataJSON.version !== 3
+    userDataJSON.version !== 4
   ) {
     return false;
   }
 
-  if (userDataJSON.metadata) {
-    setIsTrailblazerFemale(userDataJSON.metadata.trailblazer === "Stelle");
+  const userData = userDataJSON as UserData;
+  if (userData.metadata) {
+    setIsTrailblazerFemale(userData.metadata.trailblazer === "Stelle");
   }
 
-  setUserData(userDataJSON);
+  setUserData(userData);
   return true;
 };

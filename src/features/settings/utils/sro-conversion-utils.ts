@@ -93,7 +93,7 @@ export const convertSroToHsrScannerData = (
   const request = new XMLHttpRequest();
   request.open(
     "GET",
-    "https://raw.githubusercontent.com/kel-z/HSR-Data/main/output/min/sro_to_hsrs.json",
+    "https://raw.githubusercontent.com/kel-z/HSR-Data/v4/output/min/sro_to_hsrs.json",
     false,
   );
   request.send();
